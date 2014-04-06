@@ -36,16 +36,18 @@ function JWindow:__init()
   local label = Label.Create( scroll_control )
   label:SetPadding( Vector2( 0, 0 ), Vector2( 14, 0 ) )
   label:SetText("The following commands are recognized \n \n" .. 
+            "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
             "/vehicle [num] : spawn the vehicle with specified number\n" .. 
             "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
             "/heaven : go to top of map \n" .. 
             "/pos : get your current position\n" ..
             "/tpp [player name] : teliport yourself to the given player\n" ..
             "/tpl [x] [z] : teliport to the specified location\n"..
-            "/time [value] : Set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\""..
+            "/time [value] : Set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\"\n"..
+            "/weather [value] : Set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
             "/clear : Clear chat\n"..
-            "/whisper [player name] \"[message]\" : send private message to player. \n\n"..
-            "Admin commands\n" ..
+            "/whisper [player name] \"[message]\" : send private message to player. \n"..
+            "\n\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
             "/makeAdmin [player name] : make the specified player an admin\n" ..
             "/kick [player name] : Kick the player with the given name\n"..
             "/kill [player name] : kill the given player\n\n\n" ..

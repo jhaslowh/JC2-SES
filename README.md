@@ -21,6 +21,7 @@ The following commands are recognized by the chat.
 /tpp [player name] : teliport yourself to the given player  
 /tpl [x] [z] : teliport to the specified location  
 /time [value] : Set the time of day for the world. Can either be a number [0-24], "day", or "night"  
+/weather [value] : Set the weather of the world. Can either be [0-2], "sunny", "rain", or "storm".  
 /clear : Clear chat  
 /whisper [player name] "[message]" : send private message to player  
 

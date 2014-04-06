@@ -13,6 +13,7 @@ function JServerControler:__init()
   self.colorPrivate = Color(0, 216, 255)
   self.colorGreen = Color(98, 220, 0)
   self.colorError = Color(249,63,63)
+  self.colorCommand = Color(115, 170, 220)
 
   -- Add events to global events 
   Events:Subscribe("PlayerChat", self, self.ChatControl)
@@ -74,7 +75,7 @@ function JServerControler:ChatControl(args)
     vehicle:SetUnoccupiedRemove(true)
     args.player:EnterVehicle(vehicle, VehicleSeat.Driver)
 
-    Chat:Broadcast(args.player:GetName() .. " - Spawned Vehicle (" .. line .. ": " .. Vehicle.GetNameByModelId(tonumber(line)) .. ")", Color(115, 170, 220))
+    Chat:Broadcast(args.player:GetName() .. " - Spawned Vehicle (" .. line .. ": " .. Vehicle.GetNameByModelId(tonumber(line)) .. ")", self.colorCommand)
     return false
   end
 
@@ -83,7 +84,7 @@ function JServerControler:ChatControl(args)
     local currentPosition = args.player:GetPosition()
     local newPosition = currentPosition + Vector3(0, 15000, 0)
     args.player:SetPosition(newPosition)
-    Chat:Broadcast(args.player:GetName() .. " is BRB visiting jesus", Color(115, 170, 220))
+    Chat:Broadcast(args.player:GetName() .. " is BRB visiting jesus", self.colorCommand)
     return false
   end
 
@@ -99,11 +100,11 @@ function JServerControler:ChatControl(args)
     for player in Server:GetPlayers() do
       if player:GetName() == pname then
         args.player:SetPosition(player:GetPosition())
-        Chat:Broadcast(args.player:GetName() .. " teliported to " .. player:GetName(), Color(115, 170, 220))
+        Chat:Broadcast(args.player:GetName() .. " teliported to " .. player:GetName(), self.colorCommand)
         return false
       end 
     end
-    args.player:SendChatMessage("Player " .. pname .. " not found", Color(115, 170, 220))
+    args.player:SendChatMessage("Player " .. pname .. " not found", self.colorCommand)
     return false
   end
 
@@ -155,10 +156,12 @@ function JServerControler:ChatControl(args)
     -- Check time words 
     if timev == "day" then
       DefaultWorld:SetTime(12)
+      Chat:Broadcast(args.player:GetName() .. " set time to day", self.colorCommand)
       return false
     end
     if timev == "night" then
       DefaultWorld:SetTime(0)
+      Chat:Broadcast(args.player:GetName() .. " set time to night", self.colorCommand)
       return false
     end
 
@@ -168,6 +171,40 @@ function JServerControler:ChatControl(args)
       return false
     end
     DefaultWorld:SetTime(timev)
+    Chat:Broadcast(args.player:GetName() .. " set time to " .. tostring(timev), self.colorCommand)
+    return false
+  end
+
+
+  -- Set the weather
+  if args.text:sub(0,8) == "/weather" then
+    -- Grab the weather value 
+    local wea = args.text:sub(10,args.text:len())
+    -- Check weather words 
+    if wea == "sunny" then
+      DefaultWorld:SetWeatherSeverity(0)
+      Chat:Broadcast(args.player:GetName() .. " set weather to sunny", self.colorCommand)
+      return false
+    end
+    if wea == "rain" then
+      DefaultWorld:SetWeatherSeverity(1)
+      Chat:Broadcast(args.player:GetName() .. " set weather to rain", self.colorCommand)
+      return false
+    end
+    if wea == "storm" then
+      DefaultWorld:SetWeatherSeverity(2)
+      Chat:Broadcast(args.player:GetName() .. " set weather to storm", self.colorCommand)
+      return false
+    end
+
+    wea = tonumber(wea)
+    if wea < 0 or wea > 2 then
+      args.player:SendChatMessage("Weather value must be [0-2]", self.colorError)
+      return false
+    end
+
+    DefaultWorld:SetWeatherSeverity(wea)
+    Chat:Broadcast(args.player:GetName() .. " set weather to " .. tostring(wea), self.colorCommand)
     return false
   end
 
