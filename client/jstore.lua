@@ -37,6 +37,7 @@ function JWindow:__init()
   label:SetPadding( Vector2( 0, 0 ), Vector2( 14, 0 ) )
   label:SetText("The following commands are recognized \n \n" .. 
             "/vehicle [num] : spawn the vehicle with specified number\n" .. 
+            "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
             "/heaven : go to top of map \n" .. 
             "/pos : get your current position\n" ..
             "/tpp [player name] : teliport yourself to the given player\n" ..

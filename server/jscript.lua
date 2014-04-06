@@ -12,6 +12,7 @@ function JServerControler:__init()
   self.colorAdmin = Color(255, 209, 25)
   self.colorPrivate = Color(0, 216, 255)
   self.colorGreen = Color(98, 220, 0)
+  self.colorError = Color(249,63,63)
 
   -- Add events to global events 
   Events:Subscribe("PlayerChat", self, self.ChatControl)
@@ -19,6 +20,49 @@ function JServerControler:__init()
 end
 
 function JServerControler:ChatControl(args)
+  -- Change players vehicle color
+  if args.text:sub(0,13) == "/vehicleColor" then
+    -- Check if player is in vehicle 
+    if args.player:InVehicle() == false then 
+      args.player:SendChatMessage("You must be in a vehicle to set the color of a vehicle", self.colorError)
+      return false 
+    end
+
+    -- Make sure args has sub args
+    if args.text:len() < 14 then
+      return false
+    end
+
+    -- Cut command from args 
+    local text = args.text:sub(15, args.text:len())
+    -- Find first space
+    local space1 = text:find("%s")
+    -- Return if no space
+    if space1 == nil then return false end
+    -- Convert space to number
+    space1 = tonumber(space1)
+
+    -- Find second space
+    local space2 = text:find("%s",space1+1)
+    -- Return if no second space
+    if space2 == nil then return false end
+    space2 = tonumber(space2)
+
+    print(text:sub(0,space1))
+    print(text:sub(space1+1,space2))
+    print(text:sub(space2+1,text:len()))
+
+    -- Set vehicle color
+    local color = Color( 
+      tonumber(text:sub(0,space1)), 
+      tonumber(text:sub(space1+1,space2)),
+      tonumber(text:sub(space2+1,text:len())))
+    args.player:GetVehicle():SetColors( color, color )
+
+    args.player:SendChatMessage("Vehicle color set to this", color)
+    return false
+  end
+
   -- Spawn a vehicle and put them inside it.
   if args.text:sub(0,8) == "/vehicle" then
     spawnArgs = {}
