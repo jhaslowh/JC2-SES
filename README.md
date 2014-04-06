@@ -1,4 +1,10 @@
-JC2-SES
-=======
+Server Enhancement Suite
+========================
 
-Just Cause 2 Multiplayer Server Script
+Commands
+--------
+
+Admin
+-----
+
+To create a new admin, add thier steam name to the admins.txt file. 
