@@ -20,6 +20,7 @@ The following commands are recognized by the chat.
 /pos : get your current position  
 /tpp [player name] : teliport yourself to the given player  
 /tpl [x] [z] : teliport to the specified location  
+/time [value] : Set the time of day for the world. Can either be a number [0-24], "day", or "night"  
 /clear : Clear chat  
 /whisper [player name] "[message]" : send private message to player  
 
