@@ -355,6 +355,10 @@ end
 
 -- Player join 
 function  JServerControler:PlayerJoin(args)
+  -- Set player skin (this will sometimes generate a invalid model)
+  math.randomseed( os.time() )
+  args.player:SetModelId(math.random(1,103))
+
   -- Check if player is allready in game
   for i=0, self.playerCount-1 do
     if self.players[i] == args.player:GetName() then
@@ -372,6 +376,7 @@ function  JServerControler:PlayerJoin(args)
   -- Print welcome message to player 
   args.player:SendChatMessage("Welcome to the server!", self.colorGreen)
   args.player:SendChatMessage("Hit F7 for help and more", self.colorGreen)
+
 end
 
 jserver = JServerControler()
