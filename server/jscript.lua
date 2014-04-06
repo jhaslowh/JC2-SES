@@ -4,7 +4,9 @@ class 'JServerControler'
 function JServerControler:__init()
   -- List of admins in server 
   self.adminCount = 0
+  self.playerCount = 0
   self.admins = {}
+  self.players = {}
 
   self:LoadAdminFile()
 
@@ -338,6 +340,17 @@ end
 
 -- Player join 
 function  JServerControler:PlayerJoin(args)
+  -- Check if player is allready in game
+  for i=0, self.playerCount-1 do
+    if self.players[i] == args.player:GetName() then
+      return 
+    end
+  end
+
+  -- Add player to player list
+  self.players[self.playerCount] = args.player:GetName()
+  self.playerCount = self.playerCount + 1
+
   -- Print global chat message 
   Chat:Broadcast(args.player:GetName() .. " has joined the game", self.colorGreen)
 
