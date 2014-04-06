@@ -11,7 +11,7 @@ The following commands are recognized by the chat.
 /heaven : go to top of map  
 /pos : get your current position  
 /tpp [player name] : teliport yourself to the given player  
-/tpl [z] [z] : teliport to the specified location  
+/tpl [x] [z] : teliport to the specified location  
 /whisper [player name] \"[message]\" : send private message to player  
 
 Admin commands  
