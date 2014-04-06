@@ -20,6 +20,33 @@ function JServerControler:__init()
   -- Add events to global events 
   Events:Subscribe("PlayerChat", self, self.ChatControl)
   Events:Subscribe("PlayerSpawn", self, self.PlayerJoin)
+  Network:Subscribe("SpawnVehicle", self, self.SpawnVehicle)
+end
+
+-- Call to spawn a vehicle 
+function JServerControler:SpawnVehicle(args, player)
+  -- Get out of vehicle if in one 
+  if player:InVehicle() then
+    local veh = player:GetVehicle()
+    veh:Remove()
+  end
+
+  -- Vehicle spawn arguments 
+  spawnArgs = {}
+  spawnArgs.model_id = args.id
+  spawnArgs.position = player:GetPosition()
+  spawnArgs.angle = player:GetAngle()
+
+  -- Create vehicle 
+  local vehicle = Vehicle.Create(spawnArgs)
+  vehicle:SetDeathRemove(true)
+  vehicle:SetInvulnerable(false)
+  vehicle:SetUnoccupiedRemove(true)
+  player:EnterVehicle(vehicle, VehicleSeat.Driver)
+
+  -- Display chat message 
+  Chat:Broadcast(player:GetName() .. " - Spawned Vehicle (" .. tostring(args.id) .. 
+    ": " .. Vehicle.GetNameByModelId(args.id) .. ")", self.colorCommand)
 end
 
 function JServerControler:ChatControl(args)
@@ -64,20 +91,8 @@ function JServerControler:ChatControl(args)
 
   -- Spawn a vehicle and put them inside it.
   if args.text:sub(0,8) == "/vehicle" then
-    spawnArgs = {}
-    -- Grab vehicle number
-    local line = args.text:sub(10,args.text:len())
-    spawnArgs.model_id = tonumber(line)
-    spawnArgs.position = args.player:GetPosition()
-    spawnArgs.angle = args.player:GetAngle()
- 
-    local vehicle = Vehicle.Create(spawnArgs)
-    vehicle:SetDeathRemove(true)
-    vehicle:SetInvulnerable(false)
-    vehicle:SetUnoccupiedRemove(true)
-    args.player:EnterVehicle(vehicle, VehicleSeat.Driver)
-
-    Chat:Broadcast(args.player:GetName() .. " - Spawned Vehicle (" .. line .. ": " .. Vehicle.GetNameByModelId(tonumber(line)) .. ")", self.colorCommand)
+    local args2 = {id=tonumber(args.text:sub(10,args.text:len()))}
+    SpawnVehicle(args2, args.player)
     return false
   end
 
@@ -360,4 +375,3 @@ function  JServerControler:PlayerJoin(args)
 end
 
 jserver = JServerControler()
-

@@ -61,6 +61,19 @@ function JWindow:__init()
 
   -- Add Vehicle list 
   tab_button = self.tab_control:AddPage("Vehicles")
+  -- Create vehicle list
+  self.list = ListBox.Create( tab_button:GetPage() )
+  self.list:SetDock( GwenPosition.Fill )
+  self.list:SetMargin( Vector2( 4, 4 ), Vector2( 4, 4 ) )
+  self.list:SetScrollable(false,true)
+  self.list:SetColumnCount(1)
+  self:FillVehicleList()
+  -- Create spawn button 
+  local button1 = Button.Create(tab_button:GetPage())
+  button1:SetDock(GwenPosition.Bottom)
+  button1:SetSize(Vector2(self.window:GetSize().x, 32)) 
+  button1:SetText("Spawn")
+  button1:Subscribe("Press", self, self.VehicleSpawnPressed)
   -- Add vehicle tab to tab control 
   self.tabs["Vehicles"] = tab_button
 
@@ -118,5 +131,87 @@ end
 function JWindow:WindowClosed( args )
   self:SetActive( false )
 end
+
+-- Called when spawn button pressed 
+function JWindow:VehicleSpawnPressed(args)
+  local pass = {}
+  local row = tonumber(self.list:GetSelectedRowName())
+  -- Return if invalid
+  if row == nil or row < 0 then return end
+  -- Get Vehicle model number
+  pass.id = row
+  Network:Send("SpawnVehicle", pass)
+  self:WindowClosed()
+end
+
+-- Add all vehicles to vehicle list 
+function JWindow:FillVehicleList()
+  -- Land Vehicles 
+  self.list:AddItem("----------------------------------------------------------------------------------------------------", "-1")
+  self.list:AddItem("   Land Vehicles         ", "-1")
+  self.list:AddItem("----------------------------------------------------------------------------------------------------", "-1")
+  self.list:AddItem("1 Dongtai Agriboss 35", "1")
+  self.list:AddItem("2 Mancini Cavallo 1001", "2")
+  self.list:AddItem("4 Kenwall Heavy Rescue", "4")
+  self.list:AddItem("7 Poloma Renegade", "7")
+  self.list:AddItem("8 Columbi Excelsior", "8")
+  self.list:AddItem("9 Tuk-Tuk Rickshaw","9")
+  self.list:AddItem("10  Saas PP12 Hogg","10")
+  self.list:AddItem("11  Shimuzu Tracline","11")
+  self.list:AddItem("12  Vanderbildt LeisureLiner","12")
+  self.list:AddItem("13  Stinger Dunebug 84","13")
+  self.list:AddItem("15  Sakura Aquila Space","15")
+  self.list:AddItem("18  SV-1003 Raider","18")
+  self.list:AddItem("21  Hamaya Cougar 600","21")
+  self.list:AddItem("20  (DLC) Monster Truck","20")
+  self.list:AddItem("22  Tuk-Tuk Laa","22")
+  self.list:AddItem("23  Chevalier Liner SB","23")
+  self.list:AddItem("26  Chevalier Traveller SD","26")
+  self.list:AddItem("29  Sakura Aquila City","29")
+  self.list:AddItem("31  URGA-9380","31")
+  self.list:AddItem("32  Mosca 2000","32")
+  self.list:AddItem("33  Chevalier Piazza IX","33")
+  self.list:AddItem("35  Garret Traver-Z","35")
+  self.list:AddItem("36  Shimuzu Tracline","36")
+  self.list:AddItem("40  Fengding EC14FD2","40")
+  self.list:AddItem("41  Niseco Coastal D22","41")
+  self.list:AddItem("42  Niseco Tusker P246","42")
+  self.list:AddItem("43  Hamaya GSY650","43")
+  self.list:AddItem("44  Hamaya Oldman","44")
+  self.list:AddItem("46  MV V880","46")
+  self.list:AddItem("47  Schulz Virginia","47")
+  self.list:AddItem("48  Maddox FVA 45","48")
+  self.list:AddItem("49  Niseco Tusker D18","49")
+  self.list:AddItem("52  Saas PP12 Hogg","52")
+  self.list:AddItem("54  Boyd Fireflame 544","54")
+  self.list:AddItem("55  Sakura Aquila Metro ST","55")
+  self.list:AddItem("56  GV-104 Razorback","56")
+  self.list:AddItem("58  (DLC) Chevalier Classic","58")
+  self.list:AddItem("60  Vaultier Patrolman","60")
+  self.list:AddItem("61  Makoto MZ 260X","61")
+  self.list:AddItem("63  Chevalier Traveller SC","63")
+  self.list:AddItem("66  Dinggong 134D","66")
+  self.list:AddItem("68  Chevalier Traveller SX","68")
+  self.list:AddItem("70  Sakura Aguila Forte","70")
+  self.list:AddItem("71  Niseco Tusker G216","71")
+  self.list:AddItem("72  Chepachet PVD","72")
+  self.list:AddItem("73  Chevalier Express HT","73")
+  self.list:AddItem("74  Hamaya 1300 Elite Cruiser","74")
+  self.list:AddItem("75  (DLC) Tuk Tuk Boom Boom","75")
+  self.list:AddItem("76  SAAS PP30 Ox","76")
+  self.list:AddItem("77  Hedge Wildchild","77")
+  self.list:AddItem("78  Civadier 999","78")
+  self.list:AddItem("79  Pocumtuck Nomad","79")
+  self.list:AddItem("82  (DLC) Chevalier Ice Breaker","82")
+  self.list:AddItem("83  Mosca 125 Performance","83")
+  self.list:AddItem("84  Marten Storm III","84")
+  self.list:AddItem("86  Dalton N90","86")
+  self.list:AddItem("87  Wilforce Trekstar","87")
+  self.list:AddItem("89  Hamaya Y250S","89")
+  self.list:AddItem("90  Makoto MZ 250","90")
+  self.list:AddItem("91  Titus ZJ","91")
+  --self.list:SelectByString("1 Dongtai Agriboss 35")
+end
+
 
 mwindow = JWindow()
