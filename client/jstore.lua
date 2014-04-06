@@ -2,6 +2,8 @@ class 'JWindow'
 
 function JWindow:__init()
   self.active = false
+  -- Bool for primary weapon 
+  self.primary = false 
 
   self.window = Window.Create()
   self.window:SetSizeRel( Vector2( 0.4, 0.4 ) )
@@ -39,6 +41,7 @@ function JWindow:__init()
             "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
             "/vehicle [num] : spawn the vehicle with specified number\n" .. 
             "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
+            "/weapon [num] : Give yourself the gun with index num\n"..
             "/heaven : go to top of map \n" .. 
             "/pos : get your current position\n" ..
             "/tpp [player name] : teliport yourself to the given player\n" ..
@@ -66,7 +69,7 @@ function JWindow:__init()
   self.list:SetDock( GwenPosition.Fill )
   self.list:SetMargin( Vector2( 4, 4 ), Vector2( 4, 4 ) )
   self.list:SetScrollable(false,true)
-  self.list:SetColumnCount(1)
+  --self.list:SetColumnCount(1)
   self:FillVehicleList()
   -- Create spawn button 
   local button1 = Button.Create(tab_button:GetPage())
@@ -80,6 +83,29 @@ function JWindow:__init()
 
   -- Add Weapon list 
   tab_button = self.tab_control:AddPage("Weapons")
+  -- Create weapon list
+  self.wlist = ListBox.Create( tab_button:GetPage() )
+  self.wlist:SetDock( GwenPosition.Fill )
+  self.wlist:SetMargin( Vector2( 4, 4 ), Vector2( 4, 4 ) )
+  self.wlist:SetScrollable(false,true)
+  --self.wlist:SetColumnCount(1)
+  self:FillWeaponList()
+  -- Create spawn button 
+  local page1 = PageControl.Create(tab_button:GetPage())
+    page1:SetDock(GwenPosition.Bottom)
+    page1:SetSize(Vector2(self.window:GetSize().x, 32)) 
+    button1 = Button.Create(page1)
+    button1:SetSize(Vector2(200, 32)) 
+    button1:SetText("Give Weapon")
+    button1:Subscribe("Press", self, self.GiveWeapon)
+  -- Create primary checkbox
+  local primaryw_checkbox = LabeledCheckBox.Create(page1)
+    primaryw_checkbox:SetPosition(Vector2(210,0))
+    primaryw_checkbox:SetSize( Vector2( 140, 20 ) )
+    primaryw_checkbox:GetLabel():SetText( "Primary weapon" )
+    primaryw_checkbox:GetCheckBox():SetChecked( self.primary )
+    primaryw_checkbox:GetCheckBox():Subscribe( "CheckChanged", 
+      function() self.primary = primaryw_checkbox:GetCheckBox():GetChecked() end )
   -- Add vehicle tab to tab control 
   self.tabs["Weapons"] = tab_button
 
@@ -143,6 +169,29 @@ function JWindow:VehicleSpawnPressed(args)
   Network:Send("SpawnVehicle", pass)
   self:WindowClosed()
 end
+
+-- Called when weapon spawn button pressed
+function JWindow:GiveWeapon(args)
+  -- body
+end
+
+-- Add all weapons to weapon list
+function JWindow:FillWeaponList()
+  self.wlist:AddItem("Airzooka", "101")
+  self.wlist:AddItem("AlphaDLCWeapon", "100")
+  self.wlist:AddItem("Assault", "11")
+  self.wlist:AddItem("BigCannon", "34")
+  self.wlist:AddItem("BubbleGun", "43")
+  self.wlist:AddItem("Cannon", "134")
+  self.wlist:AddItem("Grenade Launcher", "17")
+  self.wlist:AddItem("Handgun", "2")
+  self.wlist:AddItem("Heavy Machine Gun", "129")
+  self.wlist:AddItem("Machine Gun", "28")
+  self.wlist:AddItem("Machine Gun LAVE", "129")
+  self.wlist:AddItem("Minigun", "26")
+
+end
+
 
 -- Add all vehicles to vehicle list 
 function JWindow:FillVehicleList()

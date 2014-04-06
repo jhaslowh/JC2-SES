@@ -9,6 +9,8 @@ function JServerControler:__init()
   self.players = {}
 
   self:LoadAdminFile()
+  self.weapons = { }
+  self:CreateWeaponArray()
 
   -- Colors
   self.colorAdmin = Color(255, 209, 25)
@@ -21,6 +23,7 @@ function JServerControler:__init()
   Events:Subscribe("PlayerChat", self, self.ChatControl)
   Events:Subscribe("PlayerSpawn", self, self.PlayerJoin)
   Network:Subscribe("SpawnVehicle", self, self.SpawnVehicle)
+  Network:Subscribe("GiveGun", self, self.GiveGun)
 end
 
 -- Call to spawn a vehicle 
@@ -49,12 +52,34 @@ function JServerControler:SpawnVehicle(args, player)
     ": " .. Vehicle.GetNameByModelId(args.id) .. ")", self.colorCommand)
 end
 
+-- Call to give a weapon to a player
+function JServerControler:GiveGun(args, player)
+  if args.id < 0 or args.id > 54 then 
+    args.player:SendChatMessage("Please select a number in the range [0-54]", 
+        self.colorError)
+    return
+  end
+
+  -- Get the weapon 
+  local id = self.weapons[args.id]
+
+  -- Give gun to player 
+  if args.primary then 
+    player:GiveWeapon( WeaponSlot.Primary, Weapon(id,100,999))
+  end
+  if args.primary == false then
+    player:GiveWeapon( WeaponSlot.Right, Weapon(id,100,999))
+  end
+end
+
+-- Controls chat commands 
 function JServerControler:ChatControl(args)
   -- Change players vehicle color
   if args.text:sub(0,13) == "/vehicleColor" then
     -- Check if player is in vehicle 
     if args.player:InVehicle() == false then 
-      args.player:SendChatMessage("You must be in a vehicle to set the color of a vehicle", self.colorError)
+      args.player:SendChatMessage("You must be in a vehicle to set the color of a vehicle", 
+        self.colorError)
       return false 
     end
 
@@ -93,6 +118,22 @@ function JServerControler:ChatControl(args)
   if args.text:sub(0,8) == "/vehicle" then
     local args2 = {id=tonumber(args.text:sub(10,args.text:len()))}
     SpawnVehicle(args2, args.player)
+    return false
+  end
+
+  -- Give a weapon 
+  if args.text:sub(0,7) == "/weapon" then
+    -- Check if no args given 
+    if args.text:len() < 9 then return false end
+    -- Parse args
+    local args2 = 
+    {
+      id = tonumber(args.text:sub(9, args.text:len())),
+      primary = true
+    }
+    print(args2.id)
+    -- Give gun 
+    self:GiveGun(args2, args.player)
     return false
   end
 
@@ -377,6 +418,65 @@ function  JServerControler:PlayerJoin(args)
   args.player:SendChatMessage("Welcome to the server!", self.colorGreen)
   args.player:SendChatMessage("Hit F7 for help and more", self.colorGreen)
 
+end
+
+-- Create weapon array
+function  JServerControler:CreateWeaponArray()
+  self.weapons[0] = Weapon.Airzooka
+  self.weapons[1] = Weapon.AlphaDLCWeapon
+  self.weapons[2] = Weapon.Assault
+  self.weapons[3] = Weapon.BigCannon 
+  self.weapons[4] = Weapon.BubbleGun 
+  self.weapons[5] = Weapon.Cannon 
+  self.weapons[6] = Weapon.CannonARVE 
+  self.weapons[7] = Weapon.CannonHover 
+  self.weapons[8] = Weapon.CannonLAVE 
+  self.weapons[9] = Weapon.CannonLAVE_V016 
+  self.weapons[10] = Weapon.CannonTUKTUK 
+  self.weapons[11] = Weapon.ClusterBombLauncher 
+  self.weapons[12] = Weapon.Flak 
+  self.weapons[13] = Weapon.Grapplinghook 
+  self.weapons[14] = Weapon.GrenadeLauncher 
+  self.weapons[15] = Weapon.Handgun 
+  self.weapons[16] = Weapon.HeavyMachineGun 
+  self.weapons[17] = Weapon.MachineGun 
+  self.weapons[18] = Weapon.MachineGunLAVE 
+  self.weapons[19] = Weapon.MachinegunARVE 
+  self.weapons[20] = Weapon.Minigun 
+  self.weapons[21] = Weapon.MinigunARVE 
+  self.weapons[22] = Weapon.MinigunLAVE 
+  self.weapons[23] = Weapon.MinigunTank 
+  self.weapons[24] = Weapon.MinigunVehicle 
+  self.weapons[25] = Weapon.MultiTargetRocketLauncher 
+  self.weapons[26] = Weapon.PanayRocketLauncher 
+  self.weapons[27] = Weapon.QuadRocketLauncher 
+  self.weapons[28] = Weapon.Revolver 
+  self.weapons[29] = Weapon.RocketARVE 
+  self.weapons[30] = Weapon.RocketLAVE 
+  self.weapons[31] = Weapon.RocketLauncher 
+  self.weapons[32] = Weapon.SAM 
+  self.weapons[33] = Weapon.SMG 
+  self.weapons[34] = Weapon.SawnOffShotgun 
+  self.weapons[35] = Weapon.SentryGun 
+  self.weapons[36] = Weapon.Shotgun 
+  self.weapons[37] = Weapon.SignatureGun 
+  self.weapons[38] = Weapon.Sniper 
+  self.weapons[39] = Weapon.V022_VHLMG_L 
+  self.weapons[40] = Weapon.V022_VHLMG_R 
+  self.weapons[41] = Weapon.V022_VHLRKT 
+  self.weapons[42] = Weapon.V023_VHLMG_L 
+  self.weapons[43] = Weapon.V023_VHLMG_R 
+  self.weapons[44] = Weapon.V023_VHLRKT 
+  self.weapons[45] = Weapon.V024_VHLMG_L 
+  self.weapons[46] = Weapon.V024_VHLMG_R 
+  self.weapons[47] = Weapon.V039_VHLGL_L 
+  self.weapons[48] = Weapon.V039_VHLGL_R 
+  self.weapons[49] = Weapon.V039_VHLMG 
+  self.weapons[50] = Weapon.V059_MG 
+  self.weapons[51] = Weapon.V089_VHLMG_L 
+  self.weapons[52] = Weapon.V089_VHLMG_R 
+  self.weapons[53] = Weapon.V089_VHLRKT 
+  self.weapons[54] = Weapon.Vulcan 
 end
 
 jserver = JServerControler()
