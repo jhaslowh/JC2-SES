@@ -48,10 +48,6 @@ function JServerControler:ChatControl(args)
     if space2 == nil then return false end
     space2 = tonumber(space2)
 
-    print(text:sub(0,space1))
-    print(text:sub(space1+1,space2))
-    print(text:sub(space2+1,text:len()))
-
     -- Set vehicle color
     local color = Color( 
       tonumber(text:sub(0,space1)), 
@@ -148,6 +144,11 @@ function JServerControler:ChatControl(args)
     for i = 0, 12 do
       args.player:SendChatMessage("", self.colorPrivate)
     end
+  end
+
+  -- Set the time of day 
+  if args.text:sub(0,6) == "/time" then
+
   end
 
   --==============================================================
