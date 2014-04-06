@@ -12,7 +12,8 @@ The following commands are recognized by the chat.
 /pos : get your current position  
 /tpp [player name] : teliport yourself to the given player  
 /tpl [x] [z] : teliport to the specified location  
-/whisper [player name] \"[message]\" : send private message to player  
+/clear : Clear chat  
+/whisper [player name] "[message]" : send private message to player  
 
 Admin commands  
 /makeAdmin [player name] : make the specified player an admin  

@@ -41,6 +41,7 @@ function JWindow:__init()
             "/pos : get your current position\n" ..
             "/tpp [player name] : teliport yourself to the given player\n" ..
             "/tpl [x] [z] : teliport to the specified location\n"..
+            "/clear : Clear chat\n"..
             "/whisper [player name] \"[message]\" : send private message to player. \n\n"..
             "Admin commands\n" ..
             "/makeAdmin [player name] : make the specified player an admin\n" ..
