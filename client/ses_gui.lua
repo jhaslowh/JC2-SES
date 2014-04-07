@@ -1,6 +1,6 @@
-class 'JWindow'
+class 'SESGUI'
 
-function JWindow:__init()
+function SESGUI:__init()
   self.active = false
   -- Bool for primary weapon 
   self.primary = false 
@@ -47,19 +47,20 @@ function JWindow:__init()
     "/vehicle [num] : spawn the vehicle with specified number\n" .. 
     "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
     "/mass [num] : set the vehicle mass to the specified value\n"..
-    "/weapon [num] : Give yourself the gun with index [0-26]\n"..
+    "/weapon [num] : give yourself the gun with index [0-26]\n"..
     "/heaven : go to top of map \n" .. 
     "/pos : get your current position\n" ..
     "/tpp [player name] : teliport yourself to the given player\n" ..
     "/tpl [x] [z] : teliport to the specified location\n"..
-    "/time [value] : Set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\"\n"..
-    "/weather [value] : Set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
-    "/clear : Clear chat\n"..
+    "/time [value] : set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\"\n"..
+    "/weather [value] : set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
+    "/clear : clear chat\n"..
     "/home : go home\n"..
     "/whisper [player name] \"[message]\" : send private message to player. \n"..
+    "/steamid : print out your steam id to your own chat \n"..
     "\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
     "/makeAdmin [player name] : make the specified player an admin\n" ..
-    "/kick [player name] : Kick the player with the given name\n"..
+    "/kick [player name] : kick the player with the given name\n"..
     "/kill [player name] : kill the given player\n" ..
      "\nButtons\n------------------------------------------------------------------------------------\n" ..
     "F7 - Open Interactive GUI\n"..
@@ -134,7 +135,7 @@ function JWindow:__init()
 
 end
 
-function JWindow:ModulesLoad()
+function SESGUI:ModulesLoad()
     Events:Fire( "HelpAddItem",
         {
             name = "Server Enhancement Suite",
@@ -142,30 +143,30 @@ function JWindow:ModulesLoad()
         } )
 end
 
-function JWindow:ModuleUnload()
+function SESGUI:ModuleUnload()
     Events:Fire( "HelpRemoveItem",
         {
             name = "Server Enhancement Suite"
         } )
 end
 
-function JWindow:GetActive()
+function SESGUI:GetActive()
   return self.active
 end
 
-function JWindow:SetActive( state )
+function SESGUI:SetActive( state )
   self.active = state
   self.window:SetVisible( self.active )
   Mouse:SetVisible( self.active )
 end
 
-function JWindow:KeyUp( args )
+function SESGUI:KeyUp( args )
   if args.key == VirtualKey.F7 then
     self:SetActive( not self:GetActive() )
   end
 end
 
-function JWindow:KeyDown( args )
+function SESGUI:KeyDown( args )
   print(args.key)
   if args.key == 66 then
     Network:Send("ExplodeCar", nil)
@@ -182,18 +183,18 @@ function JWindow:KeyDown( args )
   end
 end
 
-function JWindow:LocalPlayerInput( args )
+function SESGUI:LocalPlayerInput( args )
   if self:GetActive() and Game:GetState() == GUIState.Game then
     return false
   end
 end
 
-function JWindow:WindowClosed( args )
+function SESGUI:WindowClosed( args )
   self:SetActive( false )
 end
 
 -- Called when spawn button pressed 
-function JWindow:VehicleSpawnPressed(args)
+function SESGUI:VehicleSpawnPressed(args)
   local pass = {}
   local row = tonumber(self.list:GetSelectedRowName())
   -- Return if invalid
@@ -206,7 +207,7 @@ function JWindow:VehicleSpawnPressed(args)
 end
 
 -- Called when weapon spawn button pressed
-function JWindow:GiveWeapon(args)
+function SESGUI:GiveWeapon(args)
   local pass = {}
   local row = tonumber(self.wlist:GetSelectedRowName())
   -- Return if invalid
@@ -219,7 +220,7 @@ function JWindow:GiveWeapon(args)
 end
 
 
-function JWindow:DrawHome( v, dist )
+function SESGUI:DrawHome( v, dist )
   local pos = v + Vector3( 0, 250, 0 )
   local angle = Angle(Camera:GetAngle().yaw, 0, math.pi ) * Angle( math.pi, 0, 0 )
 
@@ -240,7 +241,7 @@ function JWindow:DrawHome( v, dist )
   Render:DrawText( Vector3( 0, 0, 0 ), text, Color( 255, 255, 255, 255 ), TextSize.VeryLarge, 1.0 )
 end
 
-function JWindow:Render()
+function SESGUI:Render()
   if Game:GetState() ~= GUIState.Game then return end
   if LocalPlayer:GetWorld() ~= DefaultWorld then return end
 
@@ -251,7 +252,7 @@ function JWindow:Render()
 end
 
 -- Add all weapons to weapon list
-function JWindow:FillWeaponList()
+function SESGUI:FillWeaponList()
   self.wlist:AddItem("Assault","0")
   self.wlist:AddItem("Bubble Gun","1")
   self.wlist:AddItem("Grenade Launcher","2")
@@ -283,7 +284,7 @@ end
 
 
 -- Add all vehicles to vehicle list 
-function JWindow:FillVehicleList()
+function SESGUI:FillVehicleList()
   -- Land Vehicles 
   self.list:AddItem("----------------------------------------------------------------------------------------------------", "-1")
   self.list:AddItem("   Land Vehicles         ", "-1")
@@ -390,4 +391,4 @@ function JWindow:FillVehicleList()
   self.list:AddItem("85  Bering I-86DP","85")
 end
 
-mwindow = JWindow()
+mwindow = SESGUI()

@@ -1,7 +1,7 @@
 
-class 'JServerControler'
+class 'SES'
 
-function JServerControler:__init()
+function SES:__init()
   -- List of admins in server 
   self.adminCount = 0
   self.playerCount = 0
@@ -30,7 +30,7 @@ function JServerControler:__init()
 end
 
 -- Call to spawn a vehicle 
-function JServerControler:SpawnVehicle(args, player)
+function SES:SpawnVehicle(args, player)
   -- Get out of vehicle if in one 
   if player:InVehicle() then
     local veh = player:GetVehicle()
@@ -64,7 +64,7 @@ function JServerControler:SpawnVehicle(args, player)
 end
 
 -- Call to give a weapon to a player
-function JServerControler:GiveGun(args, player)
+function SES:GiveGun(args, player)
   if args.id < 0 or args.id > 26 then 
     player:SendChatMessage("Please select a number in the range [0-26]", 
         self.colorError)
@@ -87,7 +87,7 @@ end
 --=========================================================================
 
 -- Controls chat commands 
-function JServerControler:ChatControl(args)
+function SES:ChatControl(args)
   -- Change players vehicle color
   if args.text:sub(0,13) == "/vehicleColor" then
     -- Check if player is in vehicle 
@@ -304,6 +304,11 @@ function JServerControler:ChatControl(args)
     return false
   end
 
+  -- Print your steam id to console
+  if args.text == "/steamid" then
+    args.player:SendChatMessage(tostring(args.player:GetSteamId().id), self.colorCommand)
+  end
+
   --==============================
   -- Admin Commands
 
@@ -337,7 +342,7 @@ function JServerControler:ChatControl(args)
 
     -- Get player 
     local pname = args.text:sub(12,args.text:len())
-    self:AddAdmin(pname)
+    self:AddAdmin(args.player)
     Chat:Broadcast(pname .. " is now an Admin", self.colorAdmin)
 
     return false
@@ -370,7 +375,7 @@ end
 --=========================================================================
 
 -- Load the admin file from drive
-function  JServerControler:LoadAdminFile()
+function  SES:LoadAdminFile()
   -- Open up the admin file 
   local filename = "admins.txt"
   print("Opening " .. filename)
@@ -391,9 +396,9 @@ function  JServerControler:LoadAdminFile()
 end
 
 -- Check if player is an admin
-function  JServerControler:isAdmin(player)
+function  SES:isAdmin(player)
   for i=0, self.adminCount - 1 do
-    if player:GetName() == self.admins[i] then
+    if player:GetSteamId().id == self.admins[i] then
       return true
     end
   end
@@ -402,8 +407,8 @@ end
 
 -- Add admin to file 
 -- Will also save admin file 
-function  JServerControler:AddAdmin(playerName)
-  self.admins[self.adminCount] = playerName
+function  SES:AddAdmin(player)
+  self.admins[self.adminCount] = player:GetSteamId().id
   self.adminCount = self.adminCount + 1
 
   -- Open up the admin file 
@@ -425,7 +430,7 @@ function  JServerControler:AddAdmin(playerName)
 end
 
 -- Get player by player name 
-function  JServerControler:GetPlayerByName(playerName)
+function  SES:GetPlayerByName(playerName)
   for player in Server:GetPlayers() do
     if player:GetName() == playerName then
       return player
@@ -435,7 +440,7 @@ function  JServerControler:GetPlayerByName(playerName)
 end
 
 -- Player join 
-function  JServerControler:PlayerJoin(args)
+function  SES:PlayerJoin(args)
   -- Set player skin (this will sometimes generate a invalid model)
   math.randomseed( os.time() )
   args.player:SetModelId(math.random(1,103))
@@ -461,7 +466,7 @@ function  JServerControler:PlayerJoin(args)
 end
 
 -- Blow up car
-function  JServerControler:ExplodeCar(args, player)
+function  SES:ExplodeCar(args, player)
   -- Return if not in vehicle 
   if player:InVehicle() == false then 
     return false 
@@ -475,7 +480,7 @@ end
 
 -- Move up 
 -- Will make the car fly up into the air 
-function  JServerControler:MoveUp(args, player)
+function  SES:MoveUp(args, player)
   -- Return if not in vehicle 
   if player:InVehicle() then 
     -- Get vehicle 
@@ -485,7 +490,7 @@ function  JServerControler:MoveUp(args, player)
 end
 
 -- Movecar in direction 
-function JServerControler:MoveCar(args, player)
+function SES:MoveCar(args, player)
   local y = math.sin(args.yaw)
   local x = math.cos(args.yaw)
 
@@ -512,7 +517,7 @@ function JServerControler:MoveCar(args, player)
 end
 
 -- Create weapon array
-function  JServerControler:CreateWeaponArray()
+function  SES:CreateWeaponArray()
   self.weapons[0] = Weapon.Assault
   self.weapons[1] = Weapon.BubbleGun 
   self.weapons[2] = Weapon.GrenadeLauncher 
@@ -542,4 +547,4 @@ function  JServerControler:CreateWeaponArray()
   self.weapons[26] = Weapon.Vulcan 
 end
 
-jserver = JServerControler()
+ses = SES()
