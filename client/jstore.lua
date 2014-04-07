@@ -45,6 +45,7 @@ function JWindow:__init()
     "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
     "/vehicle [num] : spawn the vehicle with specified number\n" .. 
     "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
+    "/mass [num] : set the vehicle mass to the specified value\n"..
     "/weapon [num] : Give yourself the gun with index [0-26]\n"..
     "/heaven : go to top of map \n" .. 
     "/pos : get your current position\n" ..
