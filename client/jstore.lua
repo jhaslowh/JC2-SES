@@ -69,7 +69,6 @@ function JWindow:__init()
   self.list:SetDock( GwenPosition.Fill )
   self.list:SetMargin( Vector2( 4, 4 ), Vector2( 4, 4 ) )
   self.list:SetScrollable(false,true)
-  --self.list:SetColumnCount(1)
   self:FillVehicleList()
   -- Create spawn button 
   local button1 = Button.Create(tab_button:GetPage())
@@ -88,7 +87,6 @@ function JWindow:__init()
   self.wlist:SetDock( GwenPosition.Fill )
   self.wlist:SetMargin( Vector2( 4, 4 ), Vector2( 4, 4 ) )
   self.wlist:SetScrollable(false,true)
-  --self.wlist:SetColumnCount(1)
   self:FillWeaponList()
   -- Create spawn button 
   local page1 = PageControl.Create(tab_button:GetPage())
@@ -101,10 +99,10 @@ function JWindow:__init()
   -- Create primary checkbox
   local primaryw_checkbox = LabeledCheckBox.Create(page1)
     primaryw_checkbox:SetPosition(Vector2(210,0))
-    primaryw_checkbox:SetSize( Vector2( 140, 20 ) )
-    primaryw_checkbox:GetLabel():SetText( "Primary weapon" )
-    primaryw_checkbox:GetCheckBox():SetChecked( self.primary )
-    primaryw_checkbox:GetCheckBox():Subscribe( "CheckChanged", 
+    primaryw_checkbox:SetSize(Vector2(140, 20))
+    primaryw_checkbox:GetLabel():SetText("Primary weapon")
+    primaryw_checkbox:GetCheckBox():SetChecked(self.primary)
+    primaryw_checkbox:GetCheckBox():Subscribe("CheckChanged", 
       function() self.primary = primaryw_checkbox:GetCheckBox():GetChecked() end )
   -- Add vehicle tab to tab control 
   self.tabs["Weapons"] = tab_button
@@ -172,24 +170,46 @@ end
 
 -- Called when weapon spawn button pressed
 function JWindow:GiveWeapon(args)
-  -- body
+  local pass = {}
+  local row = tonumber(self.wlist:GetSelectedRowName())
+  -- Return if invalid
+  if row == nil or row < 0 then return end
+  -- Get weapon model number
+  pass.id = row
+  pass.primary = self.primary
+  Network:Send("GiveGun", pass)
+  self:WindowClosed()
 end
 
 -- Add all weapons to weapon list
 function JWindow:FillWeaponList()
-  self.wlist:AddItem("Airzooka", "101")
-  self.wlist:AddItem("AlphaDLCWeapon", "100")
-  self.wlist:AddItem("Assault", "11")
-  self.wlist:AddItem("BigCannon", "34")
-  self.wlist:AddItem("BubbleGun", "43")
-  self.wlist:AddItem("Cannon", "134")
-  self.wlist:AddItem("Grenade Launcher", "17")
-  self.wlist:AddItem("Handgun", "2")
-  self.wlist:AddItem("Heavy Machine Gun", "129")
-  self.wlist:AddItem("Machine Gun", "28")
-  self.wlist:AddItem("Machine Gun LAVE", "129")
-  self.wlist:AddItem("Minigun", "26")
-
+  self.wlist:AddItem("Assault","0")
+  self.wlist:AddItem("Bubble Gun","1")
+  self.wlist:AddItem("Grenade Launcher","2")
+  self.wlist:AddItem("Handgun","3")
+  self.wlist:AddItem("Heavy Machine Gun","4")
+  self.wlist:AddItem("Machine Gun","5")
+  self.wlist:AddItem("Machinegun ARVE","6")
+  self.wlist:AddItem("Minigun","7")
+  self.wlist:AddItem("Minigun ARVE","8")
+  self.wlist:AddItem("Minigun LAVE","9")
+  self.wlist:AddItem("Minigun Vehicle","10")
+  self.wlist:AddItem("Multi Target Rocket Launcher","11") 
+  self.wlist:AddItem("Panay Rocket Launcher","12")
+  self.wlist:AddItem("Revolver","13")
+  self.wlist:AddItem("Rocket ARVE","14")
+  self.wlist:AddItem("Rocket LAVE","15")
+  self.wlist:AddItem("Rocket Launcher","16")
+  self.wlist:AddItem("SAM","17")
+  self.wlist:AddItem("SMG","18")
+  self.wlist:AddItem("SawnOff Shotgun","19")
+  self.wlist:AddItem("Sentry Gun","20") 
+  self.wlist:AddItem("Shotgun","21")
+  self.wlist:AddItem("Sniper","22")
+  self.wlist:AddItem("V022_VHLRKT","23")
+  self.wlist:AddItem("V023_VHLRKT","24")
+  self.wlist:AddItem("V089_VHLRKT","25")
+  self.wlist:AddItem("Vulcan","26")
 end
 
 
@@ -259,8 +279,6 @@ function JWindow:FillVehicleList()
   self.list:AddItem("89  Hamaya Y250S","89")
   self.list:AddItem("90  Makoto MZ 250","90")
   self.list:AddItem("91  Titus ZJ","91")
-  --self.list:SelectByString("1 Dongtai Agriboss 35")
 end
-
 
 mwindow = JWindow()

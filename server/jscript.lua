@@ -72,6 +72,9 @@ function JServerControler:GiveGun(args, player)
   end
 end
 
+--=========================================================================
+--=========================================================================
+
 -- Controls chat commands 
 function JServerControler:ChatControl(args)
   -- Change players vehicle color
@@ -327,6 +330,9 @@ function JServerControler:ChatControl(args)
 
   return true
 end
+
+--=========================================================================
+--=========================================================================
 
 -- Load the admin file from drive
 function  JServerControler:LoadAdminFile()
