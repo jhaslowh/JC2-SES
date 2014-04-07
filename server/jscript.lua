@@ -26,6 +26,7 @@ function JServerControler:__init()
   Network:Subscribe("GiveGun", self, self.GiveGun)
   Network:Subscribe("ExplodeCar", self, self.ExplodeCar)
   Network:Subscribe("MoveUp", self, self.MoveUp)
+  Network:Subscribe("MoveCar", self, self.MoveCar)
 end
 
 -- Call to spawn a vehicle 
@@ -479,8 +480,34 @@ function  JServerControler:MoveUp(args, player)
   if player:InVehicle() then 
     -- Get vehicle 
     local veh = player:GetVehicle()
-    veh:SetLinearVelocity(Vector3(0,1000,0))
-    return false 
+    veh:SetLinearVelocity(Vector3(0,100,0))
+  end
+end
+
+-- Movecar in direction 
+function JServerControler:MoveCar(args, player)
+  local y = math.sin(args.yaw)
+  local x = math.cos(args.yaw)
+
+  -- Return if not in vehicle 
+  if player:InVehicle() then 
+    if args.up == true then 
+      -- Get vehicle 
+      local veh = player:GetVehicle()
+      veh:SetLinearVelocity(Vector3(-y * 100.0, 0, -x * 100.0))
+    elseif args.left == true then 
+      -- Get vehicle 
+      local veh = player:GetVehicle()
+      veh:SetLinearVelocity(Vector3(-x * 100.0, 0, y * 100.0)) 
+    elseif args.right == true then 
+      -- Get vehicle 
+      local veh = player:GetVehicle()
+      veh:SetLinearVelocity(Vector3(x * 100.0, 0, -y * 100.0))
+    elseif args.down == true then 
+      -- Get vehicle 
+      local veh = player:GetVehicle()
+      veh:SetLinearVelocity(Vector3(y * 100.0, 0, x * 100.0))
+    end 
   end
 end
 

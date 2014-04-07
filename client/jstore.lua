@@ -42,7 +42,7 @@ function JWindow:__init()
   local label = Label.Create( scroll_control )
   label:SetPadding( Vector2( 0, 0 ), Vector2( 14, 0 ) )
   label:SetText(
-    "The following commands are recognized \n \n" .. 
+    "The following commands are recognized by chat\n \n" .. 
     "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
     "/vehicle [num] : spawn the vehicle with specified number\n" .. 
     "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
@@ -57,10 +57,15 @@ function JWindow:__init()
     "/clear : Clear chat\n"..
     "/home : go home\n"..
     "/whisper [player name] \"[message]\" : send private message to player. \n"..
-    "\n\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
+    "\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
     "/makeAdmin [player name] : make the specified player an admin\n" ..
     "/kick [player name] : Kick the player with the given name\n"..
-    "/kill [player name] : kill the given player\n\n\n" ..
+    "/kill [player name] : kill the given player\n" ..
+     "\nButtons\n------------------------------------------------------------------------------------\n" ..
+    "F7 - Open Interactive GUI\n"..
+    "B - Blow up car\n"..
+    "U - Makes car fly up into air\n"..  
+    "Arrows - Apply Linear Velocity to car\n\n"..  
     "Created by: Jonathan Haslow-Hall")
   label:SetWrap( true )
   label:SetWidth( self.window:GetWidth() )
@@ -161,10 +166,19 @@ function JWindow:KeyUp( args )
 end
 
 function JWindow:KeyDown( args )
+  print(args.key)
   if args.key == 66 then
     Network:Send("ExplodeCar", nil)
   elseif args.key == 85 then
     Network:Send("MoveUp", nil)
+  elseif args.key == 38 then
+    Network:Send("MoveCar", {yaw=Camera:GetAngle().yaw, up=true,down=false,left=false,right=false})
+  elseif args.key == 37 then
+    Network:Send("MoveCar", {yaw=Camera:GetAngle().yaw, up=false,down=false,left=true,right=false})
+  elseif args.key == 39 then
+    Network:Send("MoveCar", {yaw=Camera:GetAngle().yaw, up=false,down=false,left=false,right=true})
+  elseif args.key == 40 then
+    Network:Send("MoveCar", {yaw=Camera:GetAngle().yaw, up=false,down=true,left=false,right=false})
   end
 end
 

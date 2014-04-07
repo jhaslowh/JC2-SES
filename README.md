@@ -35,6 +35,7 @@ The following commands are recognized by the chat.
 F7 - Open Interactive GUI  
 B - Blow up car
 U - Makes car fly up into air  
+Arrows - Apply Linear Velocity to car  
   
 ###Admin
 
