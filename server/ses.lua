@@ -1,6 +1,12 @@
 
 class 'SES'
 
+colorAdmin = Color(255, 209, 25)
+colorPrivate = Color(0, 216, 255)
+colorGreen = Color(98, 220, 0)
+colorError = Color(249,63,63)
+colorCommand = Color(115, 170, 220)
+
 function SES:__init()
   -- List of admins in server 
   self.adminCount = 0
@@ -11,13 +17,6 @@ function SES:__init()
   self:LoadAdminFile()
   self.weapons = { }
   self:CreateWeaponArray()
-
-  -- Colors
-  self.colorAdmin = Color(255, 209, 25)
-  self.colorPrivate = Color(0, 216, 255)
-  self.colorGreen = Color(98, 220, 0)
-  self.colorError = Color(249,63,63)
-  self.colorCommand = Color(115, 170, 220)
 
   -- Add events to global events 
   Events:Subscribe("PlayerChat", self, self.ChatControl)
@@ -30,6 +29,7 @@ end
 
 -- Call to spawn a vehicle 
 function SES:SpawnVehicle(args, player)
+  print(args.id)
   -- Get out of vehicle if in one 
   if player:InVehicle() then
     local veh = player:GetVehicle()
@@ -52,7 +52,7 @@ function SES:SpawnVehicle(args, player)
 
   -- Display chat message 
   Chat:Broadcast(player:GetName() .. " - Spawned Vehicle (" .. tostring(args.id) .. 
-    ": " .. Vehicle.GetNameByModelId(args.id) .. ")", self.colorCommand)
+    ": " .. Vehicle.GetNameByModelId(args.id) .. ")", colorCommand)
 
   -- Try and set colors
   local color1 = args.color1
@@ -66,7 +66,7 @@ end
 function SES:GiveGun(args, player)
   if args.id < 0 or args.id > 26 then 
     player:SendChatMessage("Please select a number in the range [0-26]", 
-        self.colorError)
+        colorError)
     return
   end
 
@@ -92,7 +92,7 @@ function SES:ChatControl(args)
     -- Check if player is in vehicle 
     if args.player:InVehicle() == false then 
       args.player:SendChatMessage("You must be in a vehicle to set the color of a vehicle", 
-        self.colorError)
+        colorError)
       return false 
     end
 
@@ -130,7 +130,7 @@ function SES:ChatControl(args)
   -- Spawn a vehicle and put them inside it.
   if args.text:sub(0,8) == "/vehicle" then
     local args2 = {id=tonumber(args.text:sub(10,args.text:len()))}
-    SpawnVehicle(args2, args.player)
+    self.SpawnVehicle(args2, args.player)
     return false
   end
 
@@ -155,7 +155,7 @@ function SES:ChatControl(args)
     local currentPosition = args.player:GetPosition()
     local newPosition = currentPosition + Vector3(0, 15000, 0)
     args.player:SetPosition(newPosition)
-    Chat:Broadcast(args.player:GetName() .. " is BRB visiting jesus", self.colorCommand)
+    Chat:Broadcast(args.player:GetName() .. " is BRB visiting jesus", colorCommand)
     return false
   end
 
@@ -183,50 +183,18 @@ function SES:ChatControl(args)
     
     -- Send private message to player if they exist
     if player != nil then
-      player:SendChatMessage(args.player:GetName() .. "(whisper): " .. mess, self.colorPrivate)
+      player:SendChatMessage(args.player:GetName() .. "(whisper): " .. mess, colorPrivate)
     end 
     
     return false
   end  
-
-  -- Set the weather
-  if args.text:sub(0,8) == "/weather" then
-    -- Grab the weather value 
-    local wea = args.text:sub(10,args.text:len())
-    -- Check weather words 
-    if wea == "sunny" then
-      DefaultWorld:SetWeatherSeverity(0)
-      Chat:Broadcast(args.player:GetName() .. " set weather to sunny", self.colorCommand)
-      return false
-    end
-    if wea == "rain" then
-      DefaultWorld:SetWeatherSeverity(1)
-      Chat:Broadcast(args.player:GetName() .. " set weather to rain", self.colorCommand)
-      return false
-    end
-    if wea == "storm" then
-      DefaultWorld:SetWeatherSeverity(2)
-      Chat:Broadcast(args.player:GetName() .. " set weather to storm", self.colorCommand)
-      return false
-    end
-
-    wea = tonumber(wea)
-    if wea < 0 or wea > 2 then
-      args.player:SendChatMessage("Weather value must be [0-2]", self.colorError)
-      return false
-    end
-
-    DefaultWorld:SetWeatherSeverity(wea)
-    Chat:Broadcast(args.player:GetName() .. " set weather to " .. tostring(wea), self.colorCommand)
-    return false
-  end
 
   -- Change the vehicle mass of your car 
   if args.text:sub(0,5) == "/mass" then
     -- Return if not in vehicle 
     if args.player:InVehicle() == false then 
       args.player:SendChatMessage("You must be in a vehicle to set mass of a vehicle", 
-        self.colorError)
+        colorError)
       return false 
     end
     -- Grab the mass value 
@@ -237,13 +205,13 @@ function SES:ChatControl(args)
     local veh = args.player:GetVehicle()
     veh:SetMass(tonumber(massv))
 
-    args.player:SendChatMessage("Vehicle mass set to " .. massv, self.colorCommand)
+    args.player:SendChatMessage("Vehicle mass set to " .. massv, colorCommand)
     return false
   end
 
   -- Print your steam id to console
   if args.text == "/steamid" then
-    args.player:SendChatMessage(tostring(args.player:GetSteamId().id), self.colorCommand)
+    args.player:SendChatMessage(tostring(args.player:GetSteamId().id), colorCommand)
   end
 
   --==============================
@@ -262,7 +230,7 @@ function SES:ChatControl(args)
 
     if player != nil then
       player:SetHealth(0)
-      Chat:Broadcast("Admin has killed " .. player:GetName(), self.colorAdmin)
+      Chat:Broadcast("Admin has killed " .. player:GetName(), colorAdmin)
       return false
     end
 
@@ -280,7 +248,7 @@ function SES:ChatControl(args)
     -- Get player 
     local pname = args.text:sub(12,args.text:len())
     self:AddAdmin(args.player)
-    Chat:Broadcast(pname .. " is now an Admin", self.colorAdmin)
+    Chat:Broadcast(pname .. " is now an Admin", colorAdmin)
 
     return false
   end
@@ -394,11 +362,11 @@ function  SES:PlayerJoin(args)
   self.playerCount = self.playerCount + 1
 
   -- Print global chat message 
-  Chat:Broadcast(args.player:GetName() .. " has joined the game", self.colorGreen)
+  Chat:Broadcast(args.player:GetName() .. " has joined the game", colorGreen)
 
   -- Print welcome message to player 
-  args.player:SendChatMessage("Welcome to the server!", self.colorGreen)
-  args.player:SendChatMessage("Hit F7 for help and more", self.colorGreen)
+  args.player:SendChatMessage("Welcome to the server!", colorGreen)
+  args.player:SendChatMessage("Hit F7 for help and more", colorGreen)
 
 end
 

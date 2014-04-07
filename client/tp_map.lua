@@ -54,9 +54,7 @@ function Tp_Map_GUI:OnMouseClick(args)
         -- Get Map locations 
         pos.x = (((mloc.x - self.map_x) / (self.map_right - self.map_x)) * self.map_max) - (self.map_max * .5) 
         pos.z = (((mloc.y - self.map_y) / (self.map_bottom - self.map_y)) * self.map_max) - (self.map_max * .5) 
-        print(pos.x)
-        print(pos.z)
-        pos.y = Physics:GetTerrainHeight(Vector2(pos.x, pos.z))
+        pos.y = Physics:GetTerrainHeight(Vector2(pos.x, pos.z)) + 5
         self:Toggle()
         Network:Send("TPPlayer", Vector3(pos.x, pos.y, pos.z))
       end
