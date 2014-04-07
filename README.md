@@ -1,15 +1,13 @@
 Server Enhancement Suite
 ========================
 
-This is a script for the Just Cause 2 Multiplayer Mod that adds a ton of commands to the chat, adds admins and admin controls, and a GUI for spawning game items. 
+This is a script for the Just Cause 2 Multiplayer Mod that adds a ton of commands to the chat, adds admins & admin controls, and a GUI for spawning game items. 
 
-How to use
-----------
+###How to use
 
 You must be running a copy of the Just Cause 2 Dedicated Mulitiplayer Server. Then just drop everything in this repo into a folder inside your script folder. 
 
-Commands
---------
+###Commands
 
 The following commands are recognized by the chat.  
 
@@ -32,8 +30,11 @@ The following commands are recognized by the chat.
 /makeAdmin [player name] : make the specified player an admin  
 /kick [player name] : Kick the player with the given name  
 /kill [player name] : kill the given player  
+
+**Buttons**  
+F7 - Open Interactive GUI  
+B - Blow up car (must be on ground)  
   
-Admin
------
+###Admin
 
 To create a new admin, add thier steam name to the admins.txt file. 

@@ -24,6 +24,7 @@ function JServerControler:__init()
   Events:Subscribe("PlayerSpawn", self, self.PlayerJoin)
   Network:Subscribe("SpawnVehicle", self, self.SpawnVehicle)
   Network:Subscribe("GiveGun", self, self.GiveGun)
+  Network:Subscribe("ExplodeCar", self, self.ExplodeCar)
 end
 
 -- Call to spawn a vehicle 
@@ -455,6 +456,19 @@ function  JServerControler:PlayerJoin(args)
   args.player:SendChatMessage("Welcome to the server!", self.colorGreen)
   args.player:SendChatMessage("Hit F7 for help and more", self.colorGreen)
 
+end
+
+-- Blow up car
+function  JServerControler:ExplodeCar(args, player)
+  -- Return if not in vehicle 
+  if player:InVehicle() == false then 
+    return false 
+  end
+
+  -- Get vehicle 
+  local veh = player:GetVehicle()
+  veh:SetHealth(0)
+  Chat:Broadcast("BOOM", self.colorError)
 end
 
 -- Create weapon array

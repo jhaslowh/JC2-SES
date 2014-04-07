@@ -21,6 +21,7 @@ function JWindow:__init()
   self.tabs = {}
 
   Events:Subscribe("KeyUp", self, self.KeyUp )
+  Events:Subscribe("KeyDown", self, self.KeyDown )
   Events:Subscribe("LocalPlayerInput", self, self.LocalPlayerInput )
   self.window:Subscribe( "WindowClosed", self, self.WindowClosed )
   Events:Subscribe("ModuleLoad", self, self.ModulesLoad )
@@ -156,6 +157,13 @@ end
 function JWindow:KeyUp( args )
   if args.key == VirtualKey.F7 then
     self:SetActive( not self:GetActive() )
+  end
+end
+
+function JWindow:KeyDown( args )
+  print(args.key)
+  if args.key == 66 then
+    Network:Send("ExplodeCar", nil)
   end
 end
 
