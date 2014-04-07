@@ -32,6 +32,7 @@ The following commands are recognized by the chat.
 /weather [value] : set the weather of the world. Can either be [0-2], "sunny", "rain", or "storm".  
 /clear : clear chat  
 /home : go home  
+/sethome : set the home location to the players current location    
 /whisper [player name] "[message]" : send private message to player  
 /steamid : print out your steam id to your own chat   
 
@@ -48,5 +49,5 @@ Arrows - Apply Linear Velocity to car
   
 
 ###Technical    
-SES Version - 0.027  
+SES Version - 0.028  
 JCMP Version - 0.1.4  

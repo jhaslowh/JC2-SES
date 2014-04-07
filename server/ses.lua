@@ -243,11 +243,6 @@ function SES:ChatControl(args)
     return false
   end
 
-  -- Go home
-  if args.text == "/home" then
-    args.player:SetPosition(Vector3(-6386,212,-3534))
-  end
-
   -- Change the vehicle mass of your car 
   if args.text:sub(0,5) == "/mass" then
     -- Return if not in vehicle 

@@ -4,8 +4,6 @@ function SESGUI:__init()
   self.active = false
   -- Bool for primary weapon 
   self.primary = false 
-  -- Home location 
-  self.homeLoc = Vector3(-6386,208,-3534)
 
   self.window = Window.Create()
   self.window:SetSizeRel( Vector2( 0.4, 0.4 ) )
@@ -27,7 +25,6 @@ function SESGUI:__init()
   Events:Subscribe("ModuleLoad", self, self.ModulesLoad )
   Events:Subscribe("ModulesLoad", self, self.ModulesLoad )
   Events:Subscribe("ModuleUnload", self, self.ModuleUnload )
-  Events:Subscribe("Render", self, self.Render)
 
   -- ====================================
   -- Create GUI 
@@ -57,6 +54,7 @@ function SESGUI:__init()
     "/weather [value] : set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
     "/clear : clear chat\n"..
     "/home : go home\n"..
+    "/sethome : set the home location to the players current location\n"..
     "/whisper [player name] \"[message]\" : send private message to player. \n"..
     "/steamid : print out your steam id to your own chat \n"..
     "\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
@@ -215,38 +213,6 @@ function SESGUI:GiveWeapon(args)
   pass.primary = self.primary
   Network:Send("GiveGun", pass)
   self:WindowClosed()
-end
-
-
-function SESGUI:DrawHome( v, dist )
-  local pos = v + Vector3( 0, 250, 0 )
-  local angle = Angle(Camera:GetAngle().yaw, 0, math.pi ) * Angle( math.pi, 0, 0 )
-
-  local text = "/home"
-  local text_size = Render:GetTextSize( text, TextSize.VeryLarge )
-
-  local t = Transform3()
-  t:Translate( pos )
-  t:Scale( 1.0 )
-  t:Rotate( angle )
-  t:Translate( -Vector3( text_size.x, text_size.y, 0 )/2 )
-  Render:SetTransform( t )
-
-  local shadow_colour = Color( 0, 0, 0, 255 )
-  shadow_colour = shadow_colour * 0.4
-
-  Render:DrawText( Vector3( 1, 1, 0 ), text, shadow_colour, TextSize.VeryLarge, 1.0 )
-  Render:DrawText( Vector3( 0, 0, 0 ), text, Color( 255, 255, 255, 255 ), TextSize.VeryLarge, 1.0 )
-end
-
-function SESGUI:Render()
-  if Game:GetState() ~= GUIState.Game then return end
-  if LocalPlayer:GetWorld() ~= DefaultWorld then return end
-
-  local dist = self.homeLoc:Distance2D( Camera:GetPosition() )
-  if dist < 6000 and dist > 512 then
-    self:DrawHome( self.homeLoc, dist )
-  end
 end
 
 -- Add all weapons to weapon list
