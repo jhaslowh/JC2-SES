@@ -46,6 +46,7 @@ function SESGUI:__init()
     "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
     "/vehicle [num] : spawn the vehicle with specified number\n" .. 
     "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
+    "/explode : blow up car\n"..
     "/mass [num] : set the vehicle mass to the specified value\n"..
     "/weapon [num] : give yourself the gun with index [0-26]\n"..
     "/heaven : go to top of map \n" .. 
@@ -167,10 +168,7 @@ function SESGUI:KeyUp( args )
 end
 
 function SESGUI:KeyDown( args )
-  print(args.key)
-  if args.key == 66 then
-    Network:Send("ExplodeCar", nil)
-  elseif args.key == 85 then
+  if args.key == 85 then
     Network:Send("MoveUp", nil)
   elseif args.key == 38 then
     Network:Send("MoveCar", {yaw=Camera:GetAngle().yaw, up=true,down=false,left=false,right=false})
