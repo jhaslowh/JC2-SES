@@ -16,7 +16,7 @@ The following commands are recognized by the chat.
 **Commands for Everyone**  
 /vehicle [num] : spawn the vehicle with specified number  
 /vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]  
-/weapon [num] : Give yourself the gun with index num  
+/weapon [num] : Give yourself the gun with index [0-26]  
 /heaven : go to top of map  
 /pos : get your current position  
 /tpp [player name] : teliport yourself to the given player  

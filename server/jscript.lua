@@ -54,8 +54,8 @@ end
 
 -- Call to give a weapon to a player
 function JServerControler:GiveGun(args, player)
-  if args.id < 0 or args.id > 54 then 
-    args.player:SendChatMessage("Please select a number in the range [0-54]", 
+  if args.id < 0 or args.id > 26 then 
+    player:SendChatMessage("Please select a number in the range [0-26]", 
         self.colorError)
     return
   end
@@ -266,9 +266,8 @@ function JServerControler:ChatControl(args)
     return false
   end
 
-  --==============================================================
+  --==============================
   -- Admin Commands
-  --==============================================================
 
   -- Kill the given player if you have permission 
   if args.text:sub(0,5) == "/kill" then 
@@ -422,61 +421,33 @@ end
 
 -- Create weapon array
 function  JServerControler:CreateWeaponArray()
-  self.weapons[0] = Weapon.Airzooka
-  self.weapons[1] = Weapon.AlphaDLCWeapon
-  self.weapons[2] = Weapon.Assault
-  self.weapons[3] = Weapon.BigCannon 
-  self.weapons[4] = Weapon.BubbleGun 
-  self.weapons[5] = Weapon.Cannon 
-  self.weapons[6] = Weapon.CannonARVE 
-  self.weapons[7] = Weapon.CannonHover 
-  self.weapons[8] = Weapon.CannonLAVE 
-  self.weapons[9] = Weapon.CannonLAVE_V016 
-  self.weapons[10] = Weapon.CannonTUKTUK 
-  self.weapons[11] = Weapon.ClusterBombLauncher 
-  self.weapons[12] = Weapon.Flak 
-  self.weapons[13] = Weapon.Grapplinghook 
-  self.weapons[14] = Weapon.GrenadeLauncher 
-  self.weapons[15] = Weapon.Handgun 
-  self.weapons[16] = Weapon.HeavyMachineGun 
-  self.weapons[17] = Weapon.MachineGun 
-  self.weapons[18] = Weapon.MachineGunLAVE 
-  self.weapons[19] = Weapon.MachinegunARVE 
-  self.weapons[20] = Weapon.Minigun 
-  self.weapons[21] = Weapon.MinigunARVE 
-  self.weapons[22] = Weapon.MinigunLAVE 
-  self.weapons[23] = Weapon.MinigunTank 
-  self.weapons[24] = Weapon.MinigunVehicle 
-  self.weapons[25] = Weapon.MultiTargetRocketLauncher 
-  self.weapons[26] = Weapon.PanayRocketLauncher 
-  self.weapons[27] = Weapon.QuadRocketLauncher 
-  self.weapons[28] = Weapon.Revolver 
-  self.weapons[29] = Weapon.RocketARVE 
-  self.weapons[30] = Weapon.RocketLAVE 
-  self.weapons[31] = Weapon.RocketLauncher 
-  self.weapons[32] = Weapon.SAM 
-  self.weapons[33] = Weapon.SMG 
-  self.weapons[34] = Weapon.SawnOffShotgun 
-  self.weapons[35] = Weapon.SentryGun 
-  self.weapons[36] = Weapon.Shotgun 
-  self.weapons[37] = Weapon.SignatureGun 
-  self.weapons[38] = Weapon.Sniper 
-  self.weapons[39] = Weapon.V022_VHLMG_L 
-  self.weapons[40] = Weapon.V022_VHLMG_R 
-  self.weapons[41] = Weapon.V022_VHLRKT 
-  self.weapons[42] = Weapon.V023_VHLMG_L 
-  self.weapons[43] = Weapon.V023_VHLMG_R 
-  self.weapons[44] = Weapon.V023_VHLRKT 
-  self.weapons[45] = Weapon.V024_VHLMG_L 
-  self.weapons[46] = Weapon.V024_VHLMG_R 
-  self.weapons[47] = Weapon.V039_VHLGL_L 
-  self.weapons[48] = Weapon.V039_VHLGL_R 
-  self.weapons[49] = Weapon.V039_VHLMG 
-  self.weapons[50] = Weapon.V059_MG 
-  self.weapons[51] = Weapon.V089_VHLMG_L 
-  self.weapons[52] = Weapon.V089_VHLMG_R 
-  self.weapons[53] = Weapon.V089_VHLRKT 
-  self.weapons[54] = Weapon.Vulcan 
+  self.weapons[0] = Weapon.Assault
+  self.weapons[1] = Weapon.BubbleGun 
+  self.weapons[2] = Weapon.GrenadeLauncher 
+  self.weapons[3] = Weapon.Handgun 
+  self.weapons[4] = Weapon.HeavyMachineGun 
+  self.weapons[5] = Weapon.MachineGun 
+  self.weapons[6] = Weapon.MachinegunARVE 
+  self.weapons[7] = Weapon.Minigun 
+  self.weapons[8] = Weapon.MinigunARVE 
+  self.weapons[9] = Weapon.MinigunLAVE 
+  self.weapons[10] = Weapon.MinigunVehicle 
+  self.weapons[11] = Weapon.MultiTargetRocketLauncher 
+  self.weapons[12] = Weapon.PanayRocketLauncher 
+  self.weapons[13] = Weapon.Revolver 
+  self.weapons[14] = Weapon.RocketARVE 
+  self.weapons[15] = Weapon.RocketLAVE 
+  self.weapons[16] = Weapon.RocketLauncher 
+  self.weapons[17] = Weapon.SAM 
+  self.weapons[18] = Weapon.SMG 
+  self.weapons[19] = Weapon.SawnOffShotgun 
+  self.weapons[20] = Weapon.SentryGun 
+  self.weapons[21] = Weapon.Shotgun 
+  self.weapons[22] = Weapon.Sniper 
+  self.weapons[23] = Weapon.V022_VHLRKT 
+  self.weapons[24] = Weapon.V023_VHLRKT 
+  self.weapons[25] = Weapon.V089_VHLRKT 
+  self.weapons[26] = Weapon.Vulcan 
 end
 
 jserver = JServerControler()
