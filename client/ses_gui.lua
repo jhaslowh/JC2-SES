@@ -65,8 +65,10 @@ function SESGUI:__init()
     "F7 - Open Interactive GUI\n"..
     "B - Blow up car\n"..
     "U - Makes car fly up into air\n"..  
-    "Arrows - Apply Linear Velocity to car\n\n"..  
-    "Created by: Jonathan Haslow-Hall")
+    "Arrows - Apply Linear Velocity to car\n"..  
+    "P - Open Teliport map \n".. 
+    "--- When map is open, click on a position to teliport there. \n"..
+    "\nCreated by: Jonathan Haslow-Hall")
   label:SetWrap( true )
   label:SetWidth( self.window:GetWidth() )
   label:SizeToContents()

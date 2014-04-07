@@ -46,7 +46,8 @@ F7 - Open Interactive GUI
 B - Blow up car  
 U - Makes car fly up into air  
 Arrows - Apply Linear Velocity to car  
-  
+P - Open Teliport map  
+--- When map is open, click on a position to teliport there. 
 
 ###Technical    
 SES Version - 0.028  
