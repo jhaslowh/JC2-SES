@@ -8,13 +8,9 @@ colorError = Color(249,63,63)
 colorCommand = Color(115, 170, 220)
 
 function SES:__init()
-  -- List of admins in server 
-  self.adminCount = 0
   self.playerCount = 0
-  self.admins = {}
   self.players = {}
 
-  self:LoadAdminFile()
   self.weapons = { }
   self:CreateWeaponArray()
 
@@ -80,9 +76,6 @@ function SES:GiveGun(args, player)
     player:GiveWeapon( WeaponSlot.Right, Weapon(id,100,999))
   end
 end
-
---=========================================================================
---=========================================================================
 
 -- Controls chat commands 
 function SES:ChatControl(args)
@@ -178,7 +171,7 @@ function SES:ChatControl(args)
     -- Get Message 
     local mess = text:sub(qstart, text:len())
     -- Get player
-    local player = self:GetPlayerByName(playerName)
+    local player = GetPlayerByName(playerName)
     
     -- Send private message to player if they exist
     if player != nil then
@@ -187,134 +180,17 @@ function SES:ChatControl(args)
     
     return false
   end  
-  
+
   -- Print your steam id to console
   if args.text == "/steamid" then
     args.player:SendChatMessage(tostring(args.player:GetSteamId().id), colorCommand)
   end
 
-  --==============================
-  -- Admin Commands
-
-  -- Kill the given player if you have permission 
-  if args.text:sub(0,5) == "/kill" then 
-    -- Return false if not admin 
-    if self:isAdmin(args.player) == false then
-      return false
-    end
-
-    -- Search for player in player list
-    local pname = args.text:sub(7,args.text:len())
-    local player = self:GetPlayerByName(pname)
-
-    if player != nil then
-      player:SetHealth(0)
-      Chat:Broadcast("Admin has killed " .. player:GetName(), colorAdmin)
-      return false
-    end
-
-    args.player:SendChatMessage("Player " .. pname .. " not found", Color(115, 170, 220))
-    return false
-  end
-
-  -- Add player to admin list
-  if args.text:sub(0,10) == "/makeAdmin" then
-    -- Return false if not admin 
-    if self:isAdmin(args.player) == false then
-      return false
-    end
-
-    -- Get player 
-    local pname = args.text:sub(12,args.text:len())
-    self:AddAdmin(args.player)
-    Chat:Broadcast(pname .. " is now an Admin", colorAdmin)
-
-    return false
-  end
-
-  -- Kick player 
-  if args.text:sub(0,5) == "/kick" then
-     -- Return false if not admin 
-    if self:isAdmin(args.player) == false then
-      return false
-    end
-
-    -- Get player name
-    local playerName = args.text:sub(7,args.text:len())
-    print(playerName)
-    -- Get player
-    local player = self:GetPlayerByName(playerName)
-
-    -- Try and kick player 
-    if player != nil then
-      player:Kick()
-    end
-    return false
-  end 
-
   return true
 end
 
---=========================================================================
---=========================================================================
-
--- Load the admin file from drive
-function  SES:LoadAdminFile()
-  -- Open up the admin file 
-  local filename = "admins.txt"
-  print("Opening " .. filename)
-  local file = io.open( filename, "r" )
-
-  if file == nil then
-      print( "No admins.txt, aborting loading of admins" )
-      return
-  end
-
-  -- For each line load as admin name 
-  for line in file:lines() do
-    self.admins[self.adminCount] = line
-    self.adminCount = self.adminCount + 1
-  end
-
-  file:close()
-end
-
--- Check if player is an admin
-function  SES:isAdmin(player)
-  for i=0, self.adminCount - 1 do
-    if player:GetSteamId().id == self.admins[i] then
-      return true
-    end
-  end
-  return false
-end
-
--- Add admin to file 
--- Will also save admin file 
-function  SES:AddAdmin(player)
-  self.admins[self.adminCount] = player:GetSteamId().id
-  self.adminCount = self.adminCount + 1
-
-  -- Open up the admin file 
-  local filename = "admins.txt"
-  print("Opening " .. filename)
-  local file = io.open( filename, "w+" )
-
-  if file == nil then
-      print( "No admins.txt, aborting loading of admins" )
-      return
-  end
-
-  -- Write each name to the admin file 
-  for i = 0, self.adminCount - 1 do
-    file:write(self.admins[i] .. "\n")
-  end
-
-  file:close()
-end
-
--- Get player by player name 
-function  SES:GetPlayerByName(playerName)
+--Get player by player name 
+function GetPlayerByName(playerName)
   for player in Server:GetPlayers() do
     if player:GetName() == playerName then
       return player
