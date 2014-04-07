@@ -64,5 +64,5 @@ P - Open Teliport map
 - banning  
 
 ###Technical    
-SES Version - 0.029  
+SES Version - 0.030  
 JCMP Version - 0.1.4  
