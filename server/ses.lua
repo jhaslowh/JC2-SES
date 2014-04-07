@@ -212,14 +212,6 @@ function SES:ChatControl(args)
     return false
   end  
 
-  -- Clear terminal
-  if args.text:sub(0,7) == "/clear" then
-    for i = 0, 12 do
-      args.player:SendChatMessage("", self.colorPrivate)
-    end
-    return false
-  end
-
   -- Set the time of day 
   if args.text:sub(0,5) == "/time" then
     -- Grab the time value 
