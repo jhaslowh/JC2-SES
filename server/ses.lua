@@ -29,7 +29,6 @@ end
 
 -- Call to spawn a vehicle 
 function SES:SpawnVehicle(args, player)
-  print(args.id)
   -- Get out of vehicle if in one 
   if player:InVehicle() then
     local veh = player:GetVehicle()
@@ -130,7 +129,7 @@ function SES:ChatControl(args)
   -- Spawn a vehicle and put them inside it.
   if args.text:sub(0,8) == "/vehicle" then
     local args2 = {id=tonumber(args.text:sub(10,args.text:len()))}
-    self.SpawnVehicle(args2, args.player)
+    self:SpawnVehicle(args2, args.player)
     return false
   end
 
