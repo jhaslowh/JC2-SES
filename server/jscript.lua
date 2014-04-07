@@ -45,11 +45,19 @@ function JServerControler:SpawnVehicle(args, player)
   vehicle:SetDeathRemove(true)
   vehicle:SetInvulnerable(false)
   vehicle:SetUnoccupiedRemove(true)
+
   player:EnterVehicle(vehicle, VehicleSeat.Driver)
 
   -- Display chat message 
   Chat:Broadcast(player:GetName() .. " - Spawned Vehicle (" .. tostring(args.id) .. 
     ": " .. Vehicle.GetNameByModelId(args.id) .. ")", self.colorCommand)
+
+  -- Try and set colors
+  local color1 = args.color1
+  if color1 == nil then return end
+  local color2 = args.color2
+  if color2 == nil then color2 = color1 end
+  vehicle:SetColors( color1, color2 )
 end
 
 -- Call to give a weapon to a player
@@ -271,7 +279,7 @@ function JServerControler:ChatControl(args)
 
   -- Go home
   if args.text == "/home" then
-    args.player:SetPosition(Vector3(-6386,208,-3534))
+    args.player:SetPosition(Vector3(-6386,212,-3534))
   end
 
   --==============================

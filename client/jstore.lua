@@ -40,25 +40,26 @@ function JWindow:__init()
   scroll_control:SetDock( GwenPosition.Fill )
   local label = Label.Create( scroll_control )
   label:SetPadding( Vector2( 0, 0 ), Vector2( 14, 0 ) )
-  label:SetText("The following commands are recognized \n \n" .. 
-            "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
-            "/vehicle [num] : spawn the vehicle with specified number\n" .. 
-            "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
-            "/weapon [num] : Give yourself the gun with index [0-26]\n"..
-            "/heaven : go to top of map \n" .. 
-            "/pos : get your current position\n" ..
-            "/tpp [player name] : teliport yourself to the given player\n" ..
-            "/tpl [x] [z] : teliport to the specified location\n"..
-            "/time [value] : Set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\"\n"..
-            "/weather [value] : Set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
-            "/clear : Clear chat\n"..
-            "/home : go home\n"..
-            "/whisper [player name] \"[message]\" : send private message to player. \n"..
-            "\n\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
-            "/makeAdmin [player name] : make the specified player an admin\n" ..
-            "/kick [player name] : Kick the player with the given name\n"..
-            "/kill [player name] : kill the given player\n\n\n" ..
-            "Created by: Jonathan Haslow-Hall")
+  label:SetText(
+    "The following commands are recognized \n \n" .. 
+    "Commands for Everyone\n------------------------------------------------------------------------------------\n" ..
+    "/vehicle [num] : spawn the vehicle with specified number\n" .. 
+    "/vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]\n"..
+    "/weapon [num] : Give yourself the gun with index [0-26]\n"..
+    "/heaven : go to top of map \n" .. 
+    "/pos : get your current position\n" ..
+    "/tpp [player name] : teliport yourself to the given player\n" ..
+    "/tpl [x] [z] : teliport to the specified location\n"..
+    "/time [value] : Set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\"\n"..
+    "/weather [value] : Set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
+    "/clear : Clear chat\n"..
+    "/home : go home\n"..
+    "/whisper [player name] \"[message]\" : send private message to player. \n"..
+    "\n\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
+    "/makeAdmin [player name] : make the specified player an admin\n" ..
+    "/kick [player name] : Kick the player with the given name\n"..
+    "/kill [player name] : kill the given player\n\n\n" ..
+    "Created by: Jonathan Haslow-Hall")
   label:SetWrap( true )
   label:SetWidth( self.window:GetWidth() )
   label:SizeToContents()
@@ -74,12 +75,19 @@ function JWindow:__init()
   self.list:SetMargin( Vector2( 4, 4 ), Vector2( 4, 4 ) )
   self.list:SetScrollable(false,true)
   self:FillVehicleList()
+  -- Create Page for Vehicle list 
+  local page1 = BaseWindow.Create(tab_button:GetPage())
+    page1:SetDock(GwenPosition.Right)
+    page1:SetSize(Vector2(self.window:GetSize().x/2, self.window:GetSize().y)) 
   -- Create spawn button 
-  local button1 = Button.Create(tab_button:GetPage())
+  local button1 = Button.Create(page1)
   button1:SetDock(GwenPosition.Bottom)
-  button1:SetSize(Vector2(self.window:GetSize().x, 32)) 
+  button1:SetSize(Vector2(page:GetSize().x, 32)) 
   button1:SetText("Spawn")
   button1:Subscribe("Press", self, self.VehicleSpawnPressed)
+  -- Color Picker 
+  self.cp = ColorPicker.Create(page1)
+  self.cp:SetDock(GwenPosition.Top)
   -- Add vehicle tab to tab control 
   self.tabs["Vehicles"] = tab_button
 
@@ -93,10 +101,10 @@ function JWindow:__init()
   self.wlist:SetScrollable(false,true)
   self:FillWeaponList()
   -- Create spawn button 
-  local page1 = PageControl.Create(tab_button:GetPage())
+  page1 = BaseWindow.Create(tab_button:GetPage())
     page1:SetDock(GwenPosition.Bottom)
     page1:SetSize(Vector2(self.window:GetSize().x, 32)) 
-    button1 = Button.Create(page1)
+  button1 = Button.Create(page1)
     button1:SetSize(Vector2(200, 32)) 
     button1:SetText("Give Weapon")
     button1:Subscribe("Press", self, self.GiveWeapon)
@@ -168,6 +176,7 @@ function JWindow:VehicleSpawnPressed(args)
   if row == nil or row < 0 then return end
   -- Get Vehicle model number
   pass.id = row
+  pass.color1 = self.cp:GetColor()
   Network:Send("SpawnVehicle", pass)
   self:WindowClosed()
 end
