@@ -269,6 +269,11 @@ function JServerControler:ChatControl(args)
     return false
   end
 
+  -- Go home
+  if args.text == "/home" then
+    args.player:SetPosition(Vector3(-6386,208,-3534))
+  end
+
   --==============================
   -- Admin Commands
 

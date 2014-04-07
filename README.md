@@ -24,6 +24,7 @@ The following commands are recognized by the chat.
 /time [value] : Set the time of day for the world. Can either be a number [0-24], "day", or "night"  
 /weather [value] : Set the weather of the world. Can either be [0-2], "sunny", "rain", or "storm".  
 /clear : Clear chat  
+/home : go home  
 /whisper [player name] "[message]" : send private message to player  
 
 **Admin commands**  
