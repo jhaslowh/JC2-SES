@@ -49,6 +49,20 @@ Arrows - Apply Linear Velocity to car
 P - Open Teliport map  
 --- When map is open, click on a position to teliport there. 
 
+###Planned  
+- Model id for player in GUI  
+- /suicide command  
+- health commands for player  
+- money commands  
+- model for player  
+- /repair command for vehicle  
+- time step  command
+- tabbed vehicle list  
+- ammo on weapon GUI    
+- set color button for vehicle in GUI  
+- /ground command to go to ground  
+- banning  
+
 ###Technical    
-SES Version - 0.028  
+SES Version - 0.029  
 JCMP Version - 0.1.4  
