@@ -12,7 +12,7 @@ You must be running a copy of the Just Cause 2 Dedicated Mulitiplayer Server. Th
 
 ###Admin
 
-To create a new admin, add thier steam id to the admins.txt file. 
+To create a new admin, add thier steam id to the admins.txt file. If you need to figure out your steam id, type "/steamid" into chat ingame.  
 
 ###Commands
 
@@ -46,6 +46,6 @@ U - Makes car fly up into air
 Arrows - Apply Linear Velocity to car  
   
 
-**Technical**  
-SES Version - 0.023  
+###Technical    
+SES Version - 0.024  
 JCMP Version - 0.1.4  
