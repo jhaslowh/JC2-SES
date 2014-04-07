@@ -25,6 +25,7 @@ function JServerControler:__init()
   Network:Subscribe("SpawnVehicle", self, self.SpawnVehicle)
   Network:Subscribe("GiveGun", self, self.GiveGun)
   Network:Subscribe("ExplodeCar", self, self.ExplodeCar)
+  Network:Subscribe("MoveUp", self, self.MoveUp)
 end
 
 -- Call to spawn a vehicle 
@@ -469,6 +470,18 @@ function  JServerControler:ExplodeCar(args, player)
   local veh = player:GetVehicle()
   veh:SetHealth(0)
   Chat:Broadcast("BOOM", self.colorError)
+end
+
+-- Move up 
+-- Will make the car fly up into the air 
+function  JServerControler:MoveUp(args, player)
+  -- Return if not in vehicle 
+  if player:InVehicle() then 
+    -- Get vehicle 
+    local veh = player:GetVehicle()
+    veh:SetLinearVelocity(Vector3(0,1000,0))
+    return false 
+  end
 end
 
 -- Create weapon array

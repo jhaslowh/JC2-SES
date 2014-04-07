@@ -161,9 +161,10 @@ function JWindow:KeyUp( args )
 end
 
 function JWindow:KeyDown( args )
-  print(args.key)
   if args.key == 66 then
     Network:Send("ExplodeCar", nil)
+  elseif args.key == 85 then
+    Network:Send("MoveUp", nil)
   end
 end
 

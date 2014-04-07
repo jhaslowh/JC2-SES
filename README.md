@@ -33,7 +33,8 @@ The following commands are recognized by the chat.
 
 **Buttons**  
 F7 - Open Interactive GUI  
-B - Blow up car (must be on ground)  
+B - Blow up car
+U - Makes car fly up into air  
   
 ###Admin
 
