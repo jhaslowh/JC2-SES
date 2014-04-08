@@ -1,8 +1,9 @@
 Server Enhancement Suite
 ========================
 
-This is a script for the Just Cause 2 Multiplayer Mod that adds a ton of commands to the chat, very basic admin system, and a GUI.  
-The GUI has all the commands listed on it and tabs for spawning vehicles, giving weapons, and some player options.  
+This is a script for the Just Cause 2 Multiplayer Mod that adds a ton of commands to the chat, very basic admin system, a GUI to control some of the features easier, and a map used to teliport the player.  
+The GUI has all the commands listed on it and tabs for spawning vehicles, giving weapons, and some player options.
+When the teliport map is opened, the player will be teliported to the location they click on the map.    
 
 A lot of what is done in this script has been done before, this is just my own version of it. Check out other cool scripts at [the forums](http://www.jc-mp.com/forums/index.php/board,319.0.html).  
 
@@ -62,8 +63,7 @@ P - Open Teliport map
 - /ground command to go to ground  
 - banning  
 - Secondary vehicle color in GUI  
-- Move car fling commands to their own lua file  
 
 ###Technical    
-SES Version - 0.039  
+SES Version - 0.040  
 JCMP Version - 0.1.4  
