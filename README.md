@@ -21,8 +21,8 @@ The following commands are recognized by the chat.
 **Commands for Everyone**  
 /vehicle [num] : spawn the vehicle with specified number  
 /vehicleColor [r] [g] [b] : set the color or your vehicle, values are [0-255]  
+/vehicleMass [num] : set the vehicle mass to the specified value  
 /explode : blow up car  
-/mass [num] : set the vehicle mass to the specified value  
 /weapon [num] : give yourself the gun with index [0-26]  
 /heaven : go to top of map  
 /pos : get your current position  
@@ -64,5 +64,5 @@ P - Open Teliport map
 - Secondary vehicle color in GUI  
 
 ###Technical    
-SES Version - 0.035  
+SES Version - 0.036  
 JCMP Version - 0.1.4  
