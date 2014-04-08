@@ -8,15 +8,13 @@ colorError = Color(249,63,63)
 colorCommand = Color(115, 170, 220)
 
 function SES:__init()
-  self.playerCount = 0
-  self.players = {}
-
   self.weapons = { }
   self:CreateWeaponArray()
 
   -- Add events to global events 
   Events:Subscribe("PlayerChat", self, self.ChatControl)
-  Events:Subscribe("PlayerSpawn", self, self.PlayerJoin)
+  Events:Subscribe("PlayerJoin", self, self.PlayerJoin)
+  Events:Subscribe("PlayerQuit", self, self.PlayerQuit)
   Network:Subscribe("GiveGun", self, self.GiveGun)
   Network:Subscribe("MoveUp", self, self.MoveUp)
   Network:Subscribe("MoveCar", self, self.MoveCar)
@@ -123,17 +121,6 @@ function  SES:PlayerJoin(args)
   math.randomseed( os.time() )
   args.player:SetModelId(math.random(1,103))
 
-  -- Check if player is allready in game
-  for i=0, self.playerCount-1 do
-    if self.players[i] == args.player:GetName() then
-      return 
-    end
-  end
-
-  -- Add player to player list
-  self.players[self.playerCount] = args.player:GetName()
-  self.playerCount = self.playerCount + 1
-
   -- Print global chat message 
   Chat:Broadcast(args.player:GetName() .. " has joined the game", colorGreen)
 
@@ -141,6 +128,12 @@ function  SES:PlayerJoin(args)
   args.player:SendChatMessage("Welcome to the server!", colorGreen)
   args.player:SendChatMessage("Hit F7 for help and more", colorGreen)
 
+end
+
+-- Player quit
+function SES:PlayerQuit(args)
+  -- Print global chat message 
+  Chat:Broadcast(args.player:GetName() .. " has left the game", colorGreen)
 end
 
 -- Move up 

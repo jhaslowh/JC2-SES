@@ -62,7 +62,8 @@ P - Open Teliport map
 - /ground command to go to ground  
 - banning  
 - Secondary vehicle color in GUI  
+- Move car fling commands to their own lua file  
 
 ###Technical    
-SES Version - 0.037  
+SES Version - 0.038  
 JCMP Version - 0.1.4  

@@ -229,7 +229,7 @@ function SESGUI:VehicleSpawnPressed(args)
   pass.id = row
   pass.color1 = self.cp:GetColor()
   Network:Send("SpawnVehicle", pass)
-  self:WindowClosed()
+  self:SetActive( false )
 end
 
 -- Called when weapon spawn button pressed
@@ -242,7 +242,7 @@ function SESGUI:GiveWeapon(args)
   pass.id = row
   pass.primary = self.primary
   Network:Send("GiveGun", pass)
-  self:WindowClosed()
+  self:SetActive( false )
 end
 
 -- Add all weapons to weapon list
