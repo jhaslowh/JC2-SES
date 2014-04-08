@@ -1,19 +1,11 @@
 
-class 'SES'
-
 colorAdmin = Color(255, 209, 25)
 colorPrivate = Color(0, 216, 255)
 colorError = Color(249,63,63)
 colorCommand = Color(115, 170, 220)
 
-function SES:__init()
-  -- Add events to global events 
-  Events:Subscribe("PlayerChat", self, self.ChatControl)
-end
-
-
 -- Controls chat commands 
-function SES:ChatControl(args)
+function ChatControl(args)
   -- Fall from the heavens 
   if args.text == "/heaven" then
     local currentPosition = args.player:GetPosition()
@@ -48,4 +40,4 @@ function GetPlayerByName(playerName)
   return nil
 end
 
-ses = SES()
+Events:Subscribe("PlayerChat", ChatControl)
