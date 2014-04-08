@@ -16,8 +16,6 @@ function SES:__init()
   Events:Subscribe("PlayerJoin", self, self.PlayerJoin)
   Events:Subscribe("PlayerQuit", self, self.PlayerQuit)
   Network:Subscribe("GiveGun", self, self.GiveGun)
-  Network:Subscribe("MoveUp", self, self.MoveUp)
-  Network:Subscribe("MoveCar", self, self.MoveCar)
 end
 
 -- Call to give a weapon to a player
@@ -134,44 +132,6 @@ end
 function SES:PlayerQuit(args)
   -- Print global chat message 
   Chat:Broadcast(args.player:GetName() .. " has left the game", colorGreen)
-end
-
--- Move up 
--- Will make the car fly up into the air 
-function  SES:MoveUp(args, player)
-  -- Return if not in vehicle 
-  if player:InVehicle() then 
-    -- Get vehicle 
-    local veh = player:GetVehicle()
-    veh:SetLinearVelocity(Vector3(0,100,0))
-  end
-end
-
--- Movecar in direction 
-function SES:MoveCar(args, player)
-  local y = math.sin(args.yaw)
-  local x = math.cos(args.yaw)
-
-  -- Return if not in vehicle 
-  if player:InVehicle() then 
-    if args.up == true then 
-      -- Get vehicle 
-      local veh = player:GetVehicle()
-      veh:SetLinearVelocity(Vector3(-y * 100.0, 0, -x * 100.0))
-    elseif args.left == true then 
-      -- Get vehicle 
-      local veh = player:GetVehicle()
-      veh:SetLinearVelocity(Vector3(-x * 100.0, 0, y * 100.0)) 
-    elseif args.right == true then 
-      -- Get vehicle 
-      local veh = player:GetVehicle()
-      veh:SetLinearVelocity(Vector3(x * 100.0, 0, -y * 100.0))
-    elseif args.down == true then 
-      -- Get vehicle 
-      local veh = player:GetVehicle()
-      veh:SetLinearVelocity(Vector3(y * 100.0, 0, x * 100.0))
-    end 
-  end
 end
 
 -- Create weapon array

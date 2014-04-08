@@ -65,5 +65,5 @@ P - Open Teliport map
 - Move car fling commands to their own lua file  
 
 ###Technical    
-SES Version - 0.038  
+SES Version - 0.039  
 JCMP Version - 0.1.4  
