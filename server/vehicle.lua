@@ -42,21 +42,44 @@ function ChatControl(args)
 
 
   -- Change the vehicle mass of your car 
-  if args.text:sub(0,12) == "/vehicleMass" or args.text:sub(0,12) == "/vehiclemass" then
+  if args.text:sub(0,5) == "/mass" then
     -- Return if not in vehicle 
     if args.player:InVehicle() == false then 
       args.player:SendChatMessage("You must be in a vehicle to set mass of a vehicle", colorError)
       return false 
     end
     -- Grab the mass value 
-    local massv = args.text:sub(14,args.text:len())
-    print(massv)
+    local massv = args.text:sub(7,args.text:len())
 
     -- Get vehicle 
     local veh = args.player:GetVehicle()
     veh:SetMass(tonumber(massv))
 
     args.player:SendChatMessage("Vehicle mass set to " .. massv, colorCommand)
+    return false
+  end
+
+
+  -- Repair vehicle 
+  if args.text == "/repair" then
+    -- Return if not in vehicle 
+    if args.player:InVehicle() == false then 
+      args.player:SendChatMessage("You must be in a vehicle to repair a vehicle", colorError)
+      return false 
+    end
+
+    -- Get vehicle 
+    local veh = args.player:GetVehicle()
+    veh:SetHealth(100)
+    -- Make copy of properties 
+    --[[local args2 = {}
+    args2.id = veh:GetModelId()
+    args2.color1, args2.color2 = veh:GetColors()
+    veh:Remove()
+    -- Put player in new vehicle 
+    SpawnVehicle(args2, args.player)]]--
+
+    args.player:SendChatMessage("Vehicle repaired!", colorCommand)
     return false
   end
 
