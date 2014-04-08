@@ -59,7 +59,6 @@ P - Open Teliport map
 - model for player  
 - time step  command  
 - ammo on weapon GUI    
-- set color button for vehicle in GUI  
 - /ground command to go to ground  
 - banning  
 - Secondary vehicle color in GUI  

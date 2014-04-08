@@ -115,6 +115,12 @@ function SESGUI:__init()
   button1:SetSize(Vector2(page:GetSize().x, 32)) 
   button1:SetText("Spawn")
   button1:Subscribe("Press", self, self.VehicleSpawnPressed)
+  -- Set color button
+  button1 = Button.Create(page1)
+  button1:SetDock(GwenPosition.Bottom)
+  button1:SetSize(Vector2(page:GetSize().x, 32)) 
+  button1:SetText("Reset Vehicle Color")
+  button1:Subscribe("Press", self, self.VehicleColorPressed)
   -- Color Picker 
   self.cp = ColorPicker.Create(page1)
   self.cp:SetDock(GwenPosition.Top)
@@ -220,6 +226,14 @@ function SESGUI:VehicleSpawnPressed(args)
   pass.color1 = self.cp:GetColor()
   Network:Send("SpawnVehicle", pass)
   self:SetActive( false )
+end
+
+-- Called when vehicle color pressed
+function SESGUI:VehicleColorPressed(args)
+  local pass = {}
+  pass.color1 = self.cp:GetColor()
+  pass.color2 = self.cp:GetColor()
+  Network:Send("SetVehicleColor", pass)
 end
 
 -- Called when weapon spawn button pressed

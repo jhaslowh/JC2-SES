@@ -92,6 +92,13 @@ function ChatControl(args)
   end
 end
 
+-- Set current vehicle color
+function SetVehicleColor(args, player)
+  if args.color2 == nil then args.color2 = args.color1 end
+  player:GetVehicle():SetColors( args.color1, args.color2 )
+  player:SendChatMessage("Vehicle color set to this", args.color1)
+end
+
 -- Call to spawn a vehicle 
 function SpawnVehicle(args, player)
   -- Get out of vehicle if in one 
@@ -128,3 +135,4 @@ end
 
 Events:Subscribe("PlayerChat", ChatControl)
 Network:Subscribe("SpawnVehicle", SpawnVehicle)
+Network:Subscribe("SetVehicleColor", SetVehicleColor)
