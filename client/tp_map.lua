@@ -65,7 +65,6 @@ end
 
 -- Update key presses 
 function Tp_Map_GUI:KeyDown(args)
-  print(args.key)
   -- Toggle map
   if args.key == 80 then
     -- Toggle the new PDA map.

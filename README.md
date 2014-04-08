@@ -56,13 +56,13 @@ P - Open Teliport map
 - money commands  
 - model for player  
 - /repair command for vehicle  
-- time step  command
-- tabbed vehicle list  
+- time step  command  
 - ammo on weapon GUI    
 - set color button for vehicle in GUI  
 - /ground command to go to ground  
 - banning  
+- Secondary vehicle color in GUI  
 
 ###Technical    
-SES Version - 0.034  
+SES Version - 0.035  
 JCMP Version - 0.1.4  
