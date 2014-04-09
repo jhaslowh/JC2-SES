@@ -64,5 +64,5 @@ P - Open Teliport map
 - Secondary vehicle color in GUI  
 
 ###Technical    
-SES Version - 0.043  
+SES Version - 0.045  
 JCMP Version - 0.1.4  

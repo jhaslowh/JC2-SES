@@ -18,11 +18,21 @@ function ChatControl(args)
     
     -- Send private message to player if they exist
     if player != nil then
-      player:SendChatMessage(args.player:GetName() .. "(whisper): " .. mess, colorPrivate)
+      player:SendChatMessage(args.player:GetName() .. "(whisper): " .. mess, Color(0, 216, 255))
     end 
     
     return false
   end  
+end
+
+--Get player by player name 
+function GetPlayerByName(playerName)
+  for player in Server:GetPlayers() do
+    if player:GetName() == playerName then
+      return player
+    end 
+  end
+  return nil
 end
 
 Events:Subscribe("PlayerChat", ChatControl)
