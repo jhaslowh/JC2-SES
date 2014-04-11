@@ -50,6 +50,7 @@ U - Makes car fly up into air
 Arrows - Apply Linear Velocity to car  
 P - Open Teliport map  
 --- When map is open, click on a position to teliport there. 
+F - Hop car (Can be continuously pressed, and might also work in air vehicles....)  
 
 ###Planned  
 - Model id for player in GUI  
@@ -64,5 +65,5 @@ P - Open Teliport map
 - Secondary vehicle color in GUI  
 
 ###Technical    
-SES Version - 0.045  
+SES Version - 0.046  
 JCMP Version - 0.1.4  
