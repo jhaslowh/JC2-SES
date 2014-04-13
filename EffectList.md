@@ -26,7 +26,8 @@ Note: These descriptions might not be accurate, they are just guesses based on w
 21 : Large Explosion 2 (Will Damage Close Players)  
 22 : Very Large Circular Explosion  
 23 : Medium Electrical Explosion  
-24
-25
-26
-28 
+24 : (Nothing Noticeable)  
+25 : (Nothing Noticeable)  
+26 : Tire Pop  
+28 : Bullet hitting dirt  
+29 : Medium fire  

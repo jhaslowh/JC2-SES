@@ -69,5 +69,5 @@ F - Hop car (Can be continuously pressed, and might also work in air vehicles...
 - Secondary vehicle color in GUI  
 
 ###Technical    
-SES Version - 0.046  
+SES Version - 0.051  
 JCMP Version - 0.1.4  
