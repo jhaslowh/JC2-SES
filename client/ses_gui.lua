@@ -64,7 +64,8 @@ function SESGUI:__init()
     "/makeAdmin [player name] : make the specified player an admin\n" ..
     "/kick [player name] : kick the player with the given name\n"..
     "/kill [player name] : kill the given player\n" ..
-    "/effect [num] : try and play the specified effect\n"..
+    "/effect [num] : try and play the specified effect. Note: Some of these effects will not disappear when spawned. \n"..
+    "/pmodel [num] : set your player model to the sent model id\n"..
      "\nButtons\n------------------------------------------------------------------------------------\n" ..
     "F7 - Open Interactive GUI\n"..
     "B - Blow up car\n"..
