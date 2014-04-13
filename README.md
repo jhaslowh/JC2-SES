@@ -39,6 +39,7 @@ The following commands are recognized by the chat.
 /steamid : print out your steam id to your own chat   
 /smash [player name] : smash the given player with a car. If no player give, you will small yourself  
 /tank : spawn a tank for yourself  
+/effect [num] : try and play the specified effect  
 
 **Admin commands**  
 /makeAdmin [player name] : make the specified player an admin  

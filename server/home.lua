@@ -12,7 +12,7 @@ function ChatControl(args)
   if args.text == "/sethome" then
     home = args.player:GetPosition()
     Network:Send(args.player, "SetHome", home)
-    print("Home set")
+    args.player:SendChatMessage("Home set", colorCommand)
     return false
   end
 end
