@@ -49,8 +49,8 @@ function SESGUI:__init()
     "/weapon [num] : give yourself the gun with index [0-26]\n"..
     "/heaven : go to top of map \n" .. 
     "/pos : get your current position\n" ..
-    "/tpp [player name] : teliport yourself to the given player\n" ..
-    "/tpl [x] [z] : teliport to the specified location\n"..
+    "/tpp [player name] : teleport yourself to the given player\n" ..
+    "/tpl [x] [z] : teleport to the specified location\n"..
     "/time [value] : set the time of day for the world. Can either be a number [0-24], \"day\", or \"night\"\n"..
     "/weather [value] : set the weather of the world. Can either be [0-2], \"sunny\", \"rain\", or \"storm\".\n"..
     "/clear : clear chat\n"..
@@ -58,6 +58,7 @@ function SESGUI:__init()
     "/sethome : set the home location to the players current location\n"..
     "/whisper [player name] \"[message]\" : send private message to player. \n"..
     "/steamid : print out your steam id to your own chat \n"..
+    "/smash [player name] : smash the given player with a car. If no player give, you will small yourself\n"..
     "\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
     "/makeAdmin [player name] : make the specified player an admin\n" ..
     "/kick [player name] : kick the player with the given name\n"..
@@ -67,8 +68,8 @@ function SESGUI:__init()
     "B - Blow up car\n"..
     "U - Makes car fly up into air\n"..  
     "Arrows - Apply Linear Velocity to car\n"..  
-    "P - Open Teliport map \n".. 
-    "--- When map is open, click on a position to teliport there. \n"..
+    "P - Open Teleport map \n".. 
+    "--- When map is open, click on a position to teleport there. \n"..
     "\nCreated by: Jonathan Haslow-Hall")
   label:SetWrap( true )
   label:SetWidth( self.window:GetWidth() )

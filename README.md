@@ -1,9 +1,9 @@
 Server Enhancement Suite
 ========================
 
-This is a script for the Just Cause 2 Multiplayer Mod that adds a ton of commands to the chat, very basic admin system, a GUI to control some of the features easier, and a map used to teliport the player.  
+This is a script for the Just Cause 2 Multiplayer Mod that adds a ton of commands to the chat, very basic admin system, a GUI to control some of the features easier, and a map used to teleport the player.  
 The GUI has all the commands listed on it and tabs for spawning vehicles, giving weapons, and some player options.
-When the teliport map is opened, the player will be teliported to the location they click on the map.    
+When the teleport map is opened, the player will be teleported to the location they click on the map.    
 
 A lot of what is done in this script has been done before, this is just my own version of it. Check out other cool scripts at [the forums](http://www.jc-mp.com/forums/index.php/board,319.0.html).  
 
@@ -28,8 +28,8 @@ The following commands are recognized by the chat.
 /weapon [num] : give yourself the gun with index [0-26]  
 /heaven : go to top of map  
 /pos : get your current position  
-/tpp [player name] : teliport yourself to the given player  
-/tpl [x] [z] : teliport to the specified location  
+/tpp [player name] : teleport yourself to the given player  
+/tpl [x] [z] : teleport to the specified location  
 /time [value] : set the time of day for the world. Can either be a number [0-24], "day", or "night"  
 /weather [value] : set the weather of the world. Can either be [0-2], "sunny", "rain", or "storm".  
 /clear : clear chat  
@@ -37,6 +37,7 @@ The following commands are recognized by the chat.
 /sethome : set the home location to the players current location    
 /whisper [player name] "[message]" : send private message to player  
 /steamid : print out your steam id to your own chat   
+/smash [player name] : smash the given player with a car. If no player give, you will small yourself  
 
 **Admin commands**  
 /makeAdmin [player name] : make the specified player an admin  
@@ -48,8 +49,8 @@ F7 - Open Interactive GUI
 B - Blow up car  
 U - Makes car fly up into air  
 Arrows - Apply Linear Velocity to car  
-P - Open Teliport map  
---- When map is open, click on a position to teliport there. 
+P - Open Teleport map  
+--- When map is open, click on a position to teleport there. 
 F - Hop car (Can be continuously pressed, and might also work in air vehicles....)  
 
 ###Planned  

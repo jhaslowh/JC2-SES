@@ -6,7 +6,9 @@ function  Hop(args, player)
     -- Get vehicle 
     local veh = player:GetVehicle()
     veh:SetLinearVelocity(Vector3(
-      veh:GetLinearVelocity().x,veh:GetLinearVelocity().y+4,veh:GetLinearVelocity().z))
+      veh:GetLinearVelocity().x,
+      veh:GetLinearVelocity().y+4,
+      veh:GetLinearVelocity().z))
   end
 end
 
