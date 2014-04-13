@@ -59,6 +59,7 @@ function SESGUI:__init()
     "/whisper [player name] \"[message]\" : send private message to player. \n"..
     "/steamid : print out your steam id to your own chat \n"..
     "/smash [player name] : smash the given player with a car. If no player give, you will small yourself\n"..
+    "/tank : spawn a tank for yourself\n"..
     "\nAdmin commands\n------------------------------------------------------------------------------------\n" ..
     "/makeAdmin [player name] : make the specified player an admin\n" ..
     "/kick [player name] : kick the player with the given name\n"..
