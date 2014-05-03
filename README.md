@@ -61,7 +61,6 @@ F - Hop car (Can be continuously pressed, and might also work in air vehicles...
 - /suicide command  
 - health commands for player  
 - money commands  
-- model for player  
 - time step  command  
 - ammo on weapon GUI    
 - /ground command to go to ground  

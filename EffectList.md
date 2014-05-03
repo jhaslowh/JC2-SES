@@ -30,7 +30,26 @@ Note: These descriptions might not be accurate, they are just guesses based on w
 25 : (Nothing Noticeable)  
 26 : Tire Pop  
 28 : Bullet hitting dirt  
-29 : Medium fire  
+29 : Small fire (Must be removed manually)   
+30 : Medium fire (Must be removed manually)   
+31 : Large fire (Must be removed manually)     
+32 : (Nothing Noticeable)  
+33 : Explosion with no visuals?  
+34 : Exhaust Ball  
+35 : Pop Explosion  
+36 : Bullet hit dirt  
+37 : Bullet hit dirt 2
+38 : Bullet hit person     
+39 : (Nothing Noticeable)  
+40 : Bullet hit dirt 3
+41 : Jet Exhaust  
+42 : Fuel Explosion  
+43 : Medium Fuel Explosion    
+44 : Large Fuel Explosion  
+45 : Large black smoke ring  
+46 : Fuel explosion  
+47 : Small gray smoke effect  
+48 : Muzzle flash  
 .  
 .  
 .  
