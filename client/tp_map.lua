@@ -60,6 +60,12 @@ function Tp_Map_GUI:OnMouseClick(args)
             * self.map_max) / self.map_scale) - (self.map_max * .5) 
       pos.y = Physics:GetTerrainHeight(Vector2(pos.x, pos.z)) + 5
 
+      -- The reverse of these funtions can be used to put objects on screen. Use the formulas 
+      -- below to do that. 
+
+      -- local x = ((((pos.x + (self.map_max * .5)) * self.map_scale) / self.map_max) * (self.map_right - self.map_x)) + self.map_x
+      -- local y = ((((pos.z + (self.map_max * .5)) * self.map_scale) / self.map_max) * (self.map_bottom - self.map_y)) + self.map_y
+      
       -- Make sure position is inside map 
       if pos.x > -self.map_max and pos.x < self.map_max and pos.y > -self.map_max and pos.y < self.map_max then
         self:Toggle()
