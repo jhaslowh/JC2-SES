@@ -4,17 +4,19 @@ function Tp_Map_GUI:__init( ... )
   self.map_min = 0
   self.map_max = 32768
   self.map_size = Render.Height
-  self.map_x = (Render.Width*.5) - (self.map_size*.5)
-  self.map_y = (Render.Height*.5) - (self.map_size*.5)
+  self.map_offset_x = 0
+  self.map_offset_y = 0
+  self.map_x = (Render.Width*.5) - (self.map_size*.5) + self.map_offset_x
+  self.map_y = (Render.Height*.5) - (self.map_size*.5) + self.map_offset_y
   self.map_right = self.map_x + self.map_size
   self.map_bottom = self.map_y + self.map_size
-
+  self.map_scale = 1
 
   self.map = Image.Create( AssetLocation.Game, 'pda_map_dif.dds' )
  
   -- Resize / set the initial position of the map
-  self.map:SetSize( Vector2( self.map_size , self.map_size ) )
-  self.map:SetPosition( Vector2( self.map_x, self.map_y))
+  self.map:SetSize( Vector2( self.map_size * self.map_scale, self.map_size * self.map_scale) )
+  self.map:SetPosition( Vector2( self.map_x , self.map_y))
  
   -- Settings
  
@@ -47,14 +49,19 @@ function Tp_Map_GUI:OnMouseClick(args)
     if args.button == 1 then
       -- Get mouse location
       local mloc = Mouse:GetPosition()
+      -- New spawn location 
+      local pos = {}
+      -- Get Map locations 
+      pos.x = 
+          ((((mloc.x - self.map_x) / (self.map_right - self.map_x)) 
+            * self.map_max) / self.map_scale) - (self.map_max * .5) 
+      pos.z = 
+          ((((mloc.y - self.map_y) / (self.map_bottom - self.map_y)) 
+            * self.map_max) / self.map_scale) - (self.map_max * .5) 
+      pos.y = Physics:GetTerrainHeight(Vector2(pos.x, pos.z)) + 5
 
       -- Make sure position is inside map 
-      if mloc.x > self.map_x and mloc.y > self.map_y and mloc.x < self.map_right and mloc.y < self.map_bottom then
-        local pos = {}
-        -- Get Map locations 
-        pos.x = (((mloc.x - self.map_x) / (self.map_right - self.map_x)) * self.map_max) - (self.map_max * .5) 
-        pos.z = (((mloc.y - self.map_y) / (self.map_bottom - self.map_y)) * self.map_max) - (self.map_max * .5) 
-        pos.y = Physics:GetTerrainHeight(Vector2(pos.x, pos.z)) + 5
+      if pos.x > -self.map_max and pos.x < self.map_max and pos.y > -self.map_max and pos.y < self.map_max then
         self:Toggle()
         Network:Send("TPPlayer", Vector3(pos.x, pos.y, pos.z))
       end
